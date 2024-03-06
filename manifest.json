@@ -1,9 +1,0 @@
-{
-"name":"timewidget",
-"short_name":"tw",
-"start_url":"https://junesiphone.com/designer/timewidget/",
-"display":"fullscreen",
-"scope":"https://junesiphone.com/designer/timewidget/",
- "background_color": "#565554",
- "theme_color": "hsl(24.3, 97.4%, 54.3%)"
-}
