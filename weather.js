@@ -4,14 +4,16 @@ function getWeather(id, unit) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             console.log(latitude, longitude);
-            //https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=314803c53e6c7f2543af1cce3a1947ec
-            fetch("https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&current=temperature_2m&temperature_unit="+unit).then(response =>
+            https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=314803c53e6c7f2543af1cce3a1947ec
+            fetch("https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&units="+unit+
+            "&appid=314803c53e6c7f2543af1cce3a1947ec").then(response =>
                 response.json().then(data => ({
                     data: data,
                     status: response.status
                 })
                 ).then(res => {
-                    document.getElementById(id).innerHTML = res.data.current.temperature_2m + "°" + (unit === "fahrenheit" ? "F" : "C");
+                    document.getElementById(id).innerHTML = Math.round(res.data.main.temp) + "°" + (unit === "imperial" ? "F" : "C");
+                    console.log(res.data);
                 }));
             //temperature = JSON.parse(temperature);
 
