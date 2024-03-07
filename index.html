@@ -55,28 +55,44 @@
 			color-scheme: light dark;
 			--theme-background-color: rgb(56, 55, 54);
 		}
-		#date{
-			
+
+		#date {
+
 			color: white;
 			font-size: 20px;
 			font-family: system-ui;
 			width: 100%;
 			text-align: center;
-		
+
+		}
+
+		#myVideo {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			right: 0;
+			bottom: 0;
+			min-width: 100%;
+			height: 100%;
+			z-index: -1;
 		}
 	</style>
 </head>
 
 <body>
+	<video autoplay muted loop id="myVideo">
+		<source src="background.mp4" type="video/mp4">
+	</video>
 	<div class="clock largetext"></div>
 	<div class="" id="date"></div>
 	<p id="temperature" class="weather">N/A</p>
 	<script src="weather.js"></script>
 	<script src="clock.js"></script>
 	<script>
-		getWeather("temperature", "fahrenheit");
+		getWeather("temperature", "imperial");
 		setInterval(() => {
-			getWeather("temperature", "fahrenheit");
+			getWeather("temperature", "imperial");
 		}, 60 * 1000 * 2);
 		const clockel = document.querySelector(".clock");
 		clock({
