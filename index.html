@@ -1,124 +1,661 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<title>Clock</title>
-	<meta charset="UTF-8">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="viewport" content="width=device-width; initial-scale=1; viewport-fit=cover">
-	<meta name="theme-color" content="#f9f9f9" media="(prefers-color-scheme: light)">
-	<meta name="theme-color" content="#872e4e" media="(prefers-color-scheme: dark)">
-	<link rel="manifest" href="manifest.json">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<style>
-		html {
-			width: 100vw;
-			height: 100vh;
-			height: calc(var(--vh, 1vh) * 100);
-		}
-
-		body {
-			background-image: url('wall.png');
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-
-		.weather {
-			margin: 0;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			text-align: center;
-			font-size: 40px;
-			color: white;
-			font-family: system-ui;
-		}
-
-		.largetext {
-			width: 100%;
-			text-align: center;
-			font-size: 60px;
-			color: white;
-			font-family: system-ui;
-			font-weight: 100;
-		}
-
-		.clock {
-			margin-top: 60px;
-
-		}
-
-		:root {
-			color-scheme: light dark;
-			--theme-background-color: rgb(56, 55, 54);
-		}
-
-		#date {
-
-			color: white;
-			font-size: 20px;
-			font-family: system-ui;
-			width: 100%;
-			text-align: center;
-
-		}
-
-		#myVideo {
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			right: 0;
-			bottom: 0;
-			min-width: 100%;
-			height: 100%;
-			z-index: -1;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-	<video autoplay muted loop playsinline data-wf-ignore="true" data-object-fit="cover" id="myVideo">
-		<source src="sky.mp4" data-wf-ignore="true" type="video/mp4">
-	</video>
-	<div class="clock largetext"></div>
-	<div class="" id="date"></div>
-	<p id="temperature" class="weather">N/A</p>
-	<script src="weather.js"></script>
-	<script src="clock.js"></script>
-	<script>
-		getWeather("temperature", "imperial");
-		setInterval(() => {
-			getWeather("temperature", "imperial");
-		}, 60 * 1000 * 2);
-		const clockel = document.querySelector(".clock");
-		clock({
-			twentyfour: false,
-			padzero: false,
-			refresh: 1000,
-			success: function (clock) {
-				clockel.innerHTML = clock.hour() + ':' + clock.minute();
-			}
-		});
-		// date
-		const date = new Date();
-		const options = {
-			weekday: 'short',
-			month: 'long',
-			day: 'numeric'
-		};
-		document.getElementById('date').innerHTML = date.toLocaleDateString('en-US', options);
-		let vh = window.innerHeight * 0.01;
-		document.documentElement.style.setProperty('--vh', `${vh}px`);
-		window.addEventListener('resize', () => {
-			// We execute the same script as before
-			let vh = window.innerHeight * 0.01;
-			document.documentElement.style.setProperty('--vh', `${vh}px`);
-		});
-	</script>
+    <div id="app">
+        <div id="canvascont">
+            <canvas id="canvas" width="800" height="600"></canvas>
+        </div>
+        <div id="tools">
+            <button id="clear">Clear</button>
+            <div id="toolbar">
+                <!--pen, eraser and fill tool-->
+                <input type="radio" id="pen" name="tool"> Pen <br>
+                <input type="radio" id="eraser" name="tool"> Eraser <br>
+                <input type="radio" id="fill" name="tool"> Fill <br>
+                <input type="radio" id="line" name="tool"> Line <br>
+                <input type="radio" id="eyedropper" name=""> Eye Dropper <br>
+                <button id="export">Export</button>
+            </div>
+            <div class="sbs">
+                <button id="undo">Undo</button>
+                <button id="redo">Redo</button>
+            </div>
+            <div class="sbs">
+                <button id="psminus">-</button>
+                <p id="ps"> 1 </p>
+                <button id="psplus">+</button>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="color-wheel"></div>
+        <input type="color" id="wheel" />
+    </div>
 </body>
+<style>
+    #canvascont{
+        width: 800px;
+        height: 600px;
+        overflow: hidden;
+    }
+     body{
+        overflow: hidden;
+
+    }
+    input[type="radio"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid black;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        margin: 5px 10px;
+        vertical-align: middle;
+
+    }
+
+    input[type="radio"]:checked::before {
+        content: '';
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: black;
+    }
+
+    .sbs {
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    button {
+        border: 0;
+        background-color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    #app {
+        display: flex;
+        flex-direction: row;
+    }
+
+    canvas {
+        border: 1px solid black;
+        background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc 100%), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc 100%);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+    }
+
+    #container {
+        margin-top: 20px;
+        display: flex;
+    }
+
+    #wheel {
+        height: 50px;
+        width: 50px;
+        margin-top: 7px;
+        border: 0;
+
+    }
+
+    #clear {
+        height: 50px;
+        width: 100px;
+        font-size: 20px;
+        border: 0;
+        background-color: black;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+</style>
+<script>
+    //import
+    /*var importButton = document.getElementById('import');
+    importButton.addEventListener('click', function () {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = e => {
+            //get every 10th pixel and set it to the grid
+            var img = new Image();
+            img.src = URL.createObjectURL(e.target.files[0]);
+            img.onload = function () {
+                var canvas = document.getElementById('canvas');
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                var width = canvas.width;
+                var height = canvas.height;
+                var gridSize = 10;
+                var gridWidth = width / gridSize;
+                var gridHeight = height / gridSize;
+                var grid = [];
+                for (var i = 0; i < gridWidth; i++) {
+                    grid[i] = [];
+                    for (var j = 0; j < gridHeight; j++) {
+                        var pixelData = ctx.getImageData(i * gridSize, j * gridSize, 1, 1).data;
+                        var color = `rgb(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]})`;
+                        grid[i][j] = color;
+                    }
+                }
+            };
+        }
+        pushToHistory(grid.map(row => [...row]));
+
+        input.click();
+    });*/
+    //export
+    var exportButton = document.getElementById('export');
+    exportButton.addEventListener('click', function () {
+        //confirm
+        var r = confirm('Are you sure you want to export?');
+        if (!r) {
+            return;
+        }
+        var canvas = document.getElementById('canvas');
+        var dataURL = canvas.toDataURL();
+        var a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'pixel-art.png';
+        a.click();
+    });
+    function colourNameToHex(colour) {
+
+        var cols = {
+             "black": "#000000", "blue": "#0000ff", "brown": "#a52a2a", "cyan": "#00ffff","gold": "#ffd700", "gray": "#808080", "green": "#008000", "indigo": "#4b0082", "magenta": "#ff00ff", "orange": "#ffa500", "pink": "#ffc0cb", "purple": "#800080", "red": "#ff0000", "violet": "#ee82ee", "white": "#ffffff", "yellow": "#ffff00"
+        };
+        if (typeof cols[colour.toLowerCase()] != 'undefined') {
+            return cols[colour.toLowerCase()];
+        }
+        return false;
+    }
+    //+- pen size
+    var psplus = document.getElementById('psplus');
+    var psminus = document.getElementById('psminus');
+    var pen = document.getElementById('ps');
+    var line = document.getElementById('line');
+    psplus.addEventListener('click', function () {
+        ps++;
+        updatePs();
+    });
+
+    psminus.addEventListener('click', function () {
+        if (ps > 0) {
+            ps--;
+        }
+        updatePs();
+    });
+    //undo and redo with ctrl z and ctrl shift z
+    var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white'];
+    let ps = 0;
+    function updatePs() {
+        document.getElementById('ps').innerHTML = ps + 1;
+    }
+    var eyedropper = document.getElementById('eyedropper');
+    document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey && e.key === 'z') {
+            undo.click();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
+            redo.click();
+        }
+        if (e.key === 'c') {
+            clear.click();
+        }
+        if (e.key === 'p') {
+            pen.click();
+        }
+        if (e.key === 'e') {
+            eraser.click();
+        }
+        if (e.key === 'f') {
+            fill.click();
+        }
+        if (e.key === 'l') {
+            line.click();
+        }
+        if (e.key === '=' || e.key === '+') {
+            ps += 1;
+            updatePs();
+        }
+        if (e.key === 'i') {
+            eyedropper.click();
+        }
+        if (e.key === '-') {
+            if (ps > 0) {
+                ps -= 1;
+                updatePs();
+            }
+        }
+        // if key is a number
+        if (e.key >= 0 && e.key <= 9) {
+            color = colors[parseInt(e.key)];
+            wheel.value = colourNameToHex(color);
+        }
+    });
+
+    //color wheel
+    var colorWheel = document.getElementById('color-wheel');
+    var wheel = document.getElementById('wheel');
+    for (var i = 0; i < colors.length; i++) {
+        var div = document.createElement('div');
+        div.style.width = '50px';
+        div.style.height = '50px';
+        div.style.backgroundColor = colors[i];
+        div.style.display = 'inline-block';
+        div.style.margin = '10px';
+        div.onclick = function () {
+            color = this.style.backgroundColor;
+            wheel.value = colourNameToHex(color);
+        };
+        colorWheel.appendChild(div);
+    }
+    var color = 'black';
+    //get input from wheel
+    var wheel = document.getElementById('wheel');
+    wheel.addEventListener('input', function () {
+        color = wheel.value;
+    });
+
+    //split canvas into a grid and only allow drawing in the grid
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+
+    var width = canvas.width;
+    var height = canvas.height;
+    
+    var gridSize = 10;
+    var gridWidth = width / gridSize;
+    var gridHeight = height / gridSize;
+    var grid = [];
+    var zoom = 1;
+    var pt = { x: 0, y: 0 };
+    //zoom in and out of the canvas with the mouse wheel
+    canvas.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            zoom *= 1.1;
+        } else {
+            zoom /= 1.1;
+        }
+        if(zoom < .2){
+            zoom = .2;
+        }
+        //get pixel mouse is over
+        //translate the canvas so that the mouse is always over the same pixel
+        canvas.style.transformOrigin = '50% 50%';
+        canvas.style.transform = 'scale(' + zoom + ')';
+
+    });
+    //pixel art
+    for (var i = 0; i < gridWidth; i++) {
+        grid[i] = [];
+        for (var j = 0; j < gridHeight; j++) {
+            // erase all
+            grid[i][j] = '';
+
+
+        }
+    }
+    //draw on grid
+    var mousedown = false;
+    canvas.addEventListener('mousedown', function (e) {
+        mousedown = true;
+        var rect = canvas.getBoundingClientRect();
+        var x = (e.pageX - window.scrollX - rect.left) / zoom;
+        var y = (e.pageY - window.scrollY - rect.top) / zoom;
+        startPoint = { x: x, y: y };
+        if (!line.checked) {
+            draw(e);
+        }
+    });
+    canvas.addEventListener('mouseup', function (e) {
+        if (line.checked) {
+            drawLine(e);
+        }
+        mousedown = false;
+        //startPoint = null;
+    });
+    //mouse move event
+    canvas.addEventListener('mousemove', function (e) {
+        if (!line.checked) {
+            draw(e);
+        }
+
+    });
+
+    //undo and redo
+    var undo = document.getElementById('undo');
+    var redo = document.getElementById('redo');
+    //check if two grids are the same
+    function isSameGrid(grid1, grid2) {
+        for (var i = 0; i < gridWidth; i++) {
+            for (var j = 0; j < gridHeight; j++) {
+                if (grid1[i][j] !== grid2[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    undo.addEventListener('click', function () {
+        if (undoHistory.length > 0) {
+            redoHistory.push(grid.map(row => [...row]));
+            grid = undoHistory.pop();
+            redrawGrid();
+        }
+    });
+    redo.addEventListener('click', function () {
+        if (redoHistory.length > 0) {
+            undoHistory.push(grid.map(row => [...row]));
+            grid = redoHistory.pop();
+            redrawGrid();
+        }
+    });
+    var undoHistory = [];
+    var redoHistory = [];
+    function pushToHistory(grid) {
+        if (undoHistory.length === 0) {
+            undoHistory.push(grid);
+            return;
+        }
+        if (!isSameGrid(grid, undoHistory[undoHistory.length - 1])) {
+            undoHistory.push(grid);
+            redoHistory = [];
+        }
+    }
+    function redrawGrid() {
+        for (var i = 0; i < gridWidth; i++) {
+            for (var j = 0; j < gridHeight; j++) {
+
+                if (grid[i][j] === '') {
+                    ctx.clearRect(i * gridSize, j * gridSize, gridSize, gridSize);
+                } else {
+                    ctx.fillStyle = grid[i][j];
+                    ctx.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
+                }
+            }
+        }
+        ctx.strokeStyle = 'black';
+    }
+    //check if pen or eraser is selected
+    function draw(e) {
+        //add to history
+        if (!mousedown) {
+            return;
+        }
+        if (pen.checked) {
+            pushToHistory(grid.map(row => [...row]));
+            drawPixel(e, ps);
+        } else if (eraser.checked) {
+            pushToHistory(grid.map(row => [...row]));
+            erasePixel(e, ps);
+        } else if (fill.checked) {
+            pushToHistory(grid.map(row => [...row]));
+            fillPixel(e);
+        } else if (eyedropper.checked) {
+            eyedropperTool(e);
+        }
+    }
+    function eyedropperTool(e) {
+        var rect = canvas.getBoundingClientRect();
+        var x = (e.pageX - window.scrollX - rect.left) / zoom;
+        var y = (e.pageY - window.scrollY - rect.top) / zoom;
+        var i = Math.floor(x / gridSize);
+        var j = Math.floor(y / gridSize);
+        color = grid[i][j];
+        wheel.value = colourNameToHex(color);
+    }
+
+    //draw line
+    function drawLine(e, penSize) {
+
+        var rect = canvas.getBoundingClientRect();
+        var x = (e.pageX - window.scrollX - rect.left) / zoom;
+        var y = (e.pageY - window.scrollY - rect.top) / zoom;
+        var endPoint = { x: x, y: y };
+
+        // Convert the start and end points to grid coordinates
+        var i0 = Math.floor(startPoint.x / gridSize);
+        var j0 = Math.floor(startPoint.y / gridSize);
+        var i1 = Math.floor(endPoint.x / gridSize);
+        var j1 = Math.floor(endPoint.y / gridSize);
+
+        // Use Bresenham's line algorithm to determine which points in the grid to color
+        var dx = Math.abs(i1 - i0);
+        var dy = Math.abs(j1 - j0);
+        var sx = (i0 < i1) ? 1 : -1;
+        var sy = (j0 < j1) ? 1 : -1;
+        var err = dx - dy;
+        while (true) {
+            grid[i0][j0] = color;  // color the point
+            ctx.fillStyle = color;
+            ctx.fillRect(i0 * gridSize, j0 * gridSize, gridSize, gridSize);
+
+            if (i0 === i1 && j0 === j1) break;
+            var e2 = 2 * err;
+            if (e2 > -dy) { err -= dy; i0 += sx; }
+            if (e2 < dx) { err += dx; j0 += sy; }
+        }
+
+    }
+    //draw pixel
+    function drawPixel(e, penSize) {
+        var rect = canvas.getBoundingClientRect();
+        var x = e.pageX - window.scrollX - rect.left;
+        var y = e.pageY - window.scrollY - rect.top;
+        var x = (e.pageX - window.scrollX - rect.left) / zoom;
+        var y = (e.pageY - window.scrollY - rect.top) / zoom;
+
+        var i = Math.floor(x / gridSize);
+        var j = Math.floor(y / gridSize);
+        // Draw a circle of pixels around the point (i, j)
+        for (var di = -penSize; di <= penSize; di++) {
+            for (var dj = -penSize; dj <= penSize; dj++) {
+                // Calculate the distance to the center point
+                var dist = Math.sqrt(di * di + dj * dj);
+                // If the distance is less than or equal to the penSize, color the point
+                if (dist <= penSize) {
+                    var ii = i + di;
+                    var jj = j + dj;
+                    // Check if the point is inside the grid
+                    if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
+                        grid[ii][jj] = color;
+                        ctx.fillStyle = color;
+                        ctx.fillRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
+                    }
+                }
+            }
+        }
+    }
+    //erase pixel
+    function erasePixel(e, penSize) {
+        var rect = canvas.getBoundingClientRect();
+        var x = (e.pageX - window.scrollX - rect.left) / zoom;
+        var y = (e.pageY - window.scrollY - rect.top) / zoom;
+
+        var i = Math.floor(x / gridSize);
+        var j = Math.floor(y / gridSize);
+
+        // Draw a circle of pixels around the point (i, j)
+        for (var di = -penSize; di <= penSize; di++) {
+            for (var dj = -penSize; dj <= penSize; dj++) {
+                // Calculate the distance to the center point
+                var dist = Math.sqrt(di * di + dj * dj);
+                // If the distance is less than or equal to the penSize, color the point
+                if (dist <= penSize) {
+                    var ii = i + di;
+                    var jj = j + dj;
+                    // Check if the point is inside the grid
+                    if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
+                        var rect = canvas.getBoundingClientRect();
+                        grid[ii][jj] = '';
+                        ctx.clearRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
+
+
+                    }
+                }
+            }
+        }
+    }
+    //flood fill
+    function includesCoordinate(checked, coord) {
+        for (var i = 0; i < checked.length; i++) {
+            if (checked[i][0] === coord[0] && checked[i][1] === coord[1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    function fillPixel(e) {
+        var rect = canvas.getBoundingClientRect();
+        var x = (e.pageX - window.scrollX - rect.left) / zoom;
+        var y = (e.pageY - window.scrollY - rect.top) / zoom;
+        var i = Math.floor(x / gridSize);
+        var j = Math.floor(y / gridSize);
+        var targetColor = grid[i][j];
+        //log the time the function takes to execute in ms
+        var start = performance.now();
+        //oldfloodFill(i, j, targetColor, color);
+        floodFill(i, j, targetColor, color);
+        console.log(performance.now() - start + 'ms');
+    }
+    //create empty stack; Q
+    //flood fill algorithm
+    function floodFill(x, y, targetColor, replacementColor) {
+        var queue = [[x, y]];
+        var visited = new Set();
+        //add to stack
+        //while stack is not empty
+        while (queue.length) {
+            //remove first value from stack
+            var [i, j] = queue.shift();
+            //if the pixel is out of bounds, continue
+            if (i < 0 || i >= gridWidth || j < 0 || j >= gridHeight) {
+                continue;
+            }
+            if (grid[i][j] !== targetColor) {
+                continue;
+            }
+            var coord = `${i},${j}`;
+            if (visited.has(coord)) {
+                continue;
+            }
+            grid[i][j] = replacementColor;
+            redrawPixel(i, j);
+            visited.add(coord);
+            queue.push([i + 1, j]);
+            queue.push([i - 1, j]);
+            queue.push([i, j + 1]);
+            queue.push([i, j - 1]);
+
+
+
+        }
+    }
+    function redrawPixel(i, j) {
+        ctx.fillStyle = grid[i][j];
+        ctx.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
+    }
+    let checked = [];
+    function oldfloodFill(x, y, targetColor, replacementColor) {
+        //recursively fill the pixel log number of steps
+        if (x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) {
+            return;
+        }
+        if (grid[x][y] !== targetColor) {
+            return;
+        }
+        if (includesCoordinate(checked, [x, y])) {
+            return;
+        }
+        checked.push([x, y]);
+        grid[x][y] = replacementColor;
+        redrawPixel(x, y);
+        oldfloodFill(x + 1, y, targetColor, replacementColor);
+        oldfloodFill(x - 1, y, targetColor, replacementColor);
+        oldfloodFill(x, y + 1, targetColor, replacementColor);
+        oldfloodFill(x, y - 1, targetColor, replacementColor);
+
+    }
+    //clear button, remove all pixels, and redraw the grid
+    var clear = document.getElementById('clear');
+    clear.addEventListener('click', function () {
+        ctx.clearRect(0, 0, width, height);
+        for (var i = 0; i < gridWidth; i++) {
+            for (var j = 0; j < gridHeight; j++) {
+                grid[i][j] = '';
+            }
+        }
+
+    });
+
+
+    //pen, eraser, fill tool
+    var pen = document.getElementById('pen');
+    pen.checked = true;
+    pen.addEventListener('click', function () {
+        pen.checked = true;
+        eraser.checked = false;
+        fill.checked = false;
+        eyedropper.checked = false;
+    });
+    var eraser = document.getElementById('eraser');
+    eraser.addEventListener('click', function () {
+        pen.checked = false;
+        eraser.checked = true;
+        fill.checked = false;
+        line.checked = false;
+        eyedropper.checked = false;
+    });
+    var fill = document.getElementById('fill');
+    fill.addEventListener('click', function () {
+        pen.checked = false;
+        eraser.checked = false;
+        fill.checked = true;
+        line.checked = false;
+        eyedropper.checked = false;
+    });
+
+    line.addEventListener('click', function () {
+        pen.checked = false;
+        eraser.checked = false;
+        fill.checked = false;
+        line.checked = true;
+        eyedropper.checked = false;
+    });
+    eyedropper.addEventListener('click', function () {
+        pen.checked = false;
+        eraser.checked = false;
+        fill.checked = false;
+        line.checked = false;
+        eyedropper.checked = true;
+    });
+</script>
 
 </html>
