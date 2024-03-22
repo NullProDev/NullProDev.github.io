@@ -290,6 +290,33 @@
         });
         canvas.dispatchEvent(mouseEvent);
     });
+    canvas.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+        var mouseEvent = new MouseEvent('mousemove', {
+            clientX: e.touches[0].clientX,
+            clientY: e.touches[0].clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+    });
+    canvas.addEventListener('touchend', function (e) {
+        var mouseEvent = new MouseEvent('mouseup', {});
+        canvas.dispatchEvent(mouseEvent);
+    });
+    //convert two finger zoom to scroll 
+    canvas.addEventListener('touchstart', function (e) {
+        if (e.touches.length === 2) {
+            pt = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+    });
+    canvas.addEventListener('touchmove', function (e) {
+        if (e.touches.length === 2) {
+            var dx = e.touches[0].clientX - pt.x;
+            var dy = e.touches[0].clientY - pt.y;
+            pt = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            canvas.scrollBy(-dx, -dy);
+        }
+    });
+    
     
     var ctx = canvas.getContext('2d');
 
