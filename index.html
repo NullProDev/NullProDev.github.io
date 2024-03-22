@@ -176,7 +176,6 @@
         if (!r) {
             return;
         }
-        var canvas = document.getElementById('canvas');
         var dataURL = canvas.toDataURL();
         var a = document.createElement('a');
         a.href = dataURL;
@@ -282,7 +281,16 @@
     });
 
     //split canvas into a grid and only allow drawing in the grid
+    //mobile convert touch to mouse events
     var canvas = document.getElementById('canvas');
+    canvas.addEventListener('touchstart', function (e) {
+        var mouseEvent = new MouseEvent('mousedown', {
+            clientX: e.touches[0].clientX,
+            clientY: e.touches[0].clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+    });
+    
     var ctx = canvas.getContext('2d');
 
 
