@@ -40,11 +40,12 @@
     </div>
 </body>
 <style>
-    #canvascont{
+    #canvascont {
         width: 800px;
         height: 600px;
         overflow: hidden;
     }
+
     input[type="radio"] {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -58,7 +59,6 @@
         cursor: pointer;
         margin: 5px 10px;
         vertical-align: middle;
-
     }
 
     input[type="radio"]:checked::before {
@@ -77,7 +77,6 @@
     .sbs {
         display: flex;
         flex-direction: row;
-
     }
 
     button {
@@ -128,7 +127,8 @@
         display: inline-block;
         font-size: 16px;
     }
-    #eyedropper{
+
+    #eyedropper {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -144,40 +144,6 @@
     }
 </style>
 <script>
-    //import
-    /*var importButton = document.getElementById('import');
-    importButton.addEventListener('click', function () {
-        var input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = e => {
-            //get every 10th pixel and set it to the grid
-            var img = new Image();
-            img.src = URL.createObjectURL(e.target.files[0]);
-            img.onload = function () {
-                var canvas = document.getElementById('canvas');
-                var ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                var width = canvas.width;
-                var height = canvas.height;
-                var gridSize = 10;
-                var gridWidth = width / gridSize;
-                var gridHeight = height / gridSize;
-                var grid = [];
-                for (var i = 0; i < gridWidth; i++) {
-                    grid[i] = [];
-                    for (var j = 0; j < gridHeight; j++) {
-                        var pixelData = ctx.getImageData(i * gridSize, j * gridSize, 1, 1).data;
-                        var color = `rgb(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]})`;
-                        grid[i][j] = color;
-                    }
-                }
-            };
-        }
-        pushToHistory(grid.map(row => [...row]));
-
-        input.click();
-    });*/
     //export
     var exportButton = document.getElementById('export');
     exportButton.addEventListener('click', function () {
@@ -194,35 +160,35 @@
     });
     function colourNameToHex(colour) {
 
-        var cols = {
-             "black": "#000000", "blue": "#0000ff", "brown": "#a52a2a", "cyan": "#00ffff","gold": "#ffd700", "gray": "#808080", "green": "#008000", "indigo": "#4b0082", "magenta": "#ff00ff", "orange": "#ffa500", "pink": "#ffc0cb", "purple": "#800080", "red": "#ff0000", "violet": "#ee82ee", "white": "#ffffff", "yellow": "#ffff00"
+        var allColors = {
+            "black": "#000000", "blue": "#0000ff", "brown": "#a52a2a", "cyan": "#00ffff", "gold": "#ffd700", "gray": "#808080", "green": "#008000", "indigo": "#4b0082", "magenta": "#ff00ff", "orange": "#ffa500", "pink": "#ffc0cb", "purple": "#800080", "red": "#ff0000", "violet": "#ee82ee", "white": "#ffffff", "yellow": "#ffff00"
         };
-        if (typeof cols[colour.toLowerCase()] != 'undefined') {
-            return cols[colour.toLowerCase()];
+        if (typeof allColors[colour.toLowerCase()] != 'undefined') {
+            return allColors[colour.toLowerCase()];
         }
         return false;
     }
     //+- pen size
-    var psplus = document.getElementById('psplus');
-    var psminus = document.getElementById('psminus');
+    var addPensize = document.getElementById('psplus');
+    var subtractMinus = document.getElementById('psminus');
     var pen = document.getElementById('ps');
     var line = document.getElementById('line');
-    psplus.addEventListener('click', function () {
-        ps++;
-        updatePs();
+    addPensize.addEventListener('click', function () {
+        penSize++;
+        updatePenSize();
     });
 
-    psminus.addEventListener('click', function () {
-        if (ps > 0) {
-            ps--;
+    subtractMinus.addEventListener('click', function () {
+        if (penSize > 0) {
+            penSize--;
         }
-        updatePs();
+        updatePenSize();
     });
     //undo and redo with ctrl z and ctrl shift z
     var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white'];
-    let ps = 0;
-    function updatePs() {
-        document.getElementById('ps').innerHTML = ps + 1;
+    let penSize = 0;
+    function updatePenSize() {
+        document.getElementById('ps').innerHTML = penSize + 1;
     }
     var eyedropper = document.getElementById('eyedropper');
     document.addEventListener('keydown', function (e) {
@@ -248,16 +214,16 @@
             line.click();
         }
         if (e.key === '=' || e.key === '+') {
-            ps += 1;
-            updatePs();
+            penSize += 1;
+            updatePenSize();
         }
         if (e.key === 'i') {
             eyedropper.click();
         }
         if (e.key === '-') {
-            if (ps > 0) {
-                ps -= 1;
-                updatePs();
+            if (penSize > 0) {
+                penSize -= 1;
+                updatePenSize();
             }
         }
         // if key is a number
@@ -285,7 +251,6 @@
     }
     var color = 'black';
     //get input from wheel
-    var wheel = document.getElementById('wheel');
     wheel.addEventListener('input', function () {
         color = wheel.value;
     });
@@ -294,7 +259,7 @@
     //mobile convert touch to mouse events
     var canvas = document.getElementById('canvas');
     canvas.addEventListener('touchstart', function (e) {
-        mousedown = true;
+        mouseDown = true;
         var rect = canvas.getBoundingClientRect();
         var x = (e.pageX - window.scrollX - rect.left) / zoom;
         var y = (e.pageY - window.scrollY - rect.top) / zoom;
@@ -327,17 +292,17 @@
     });
     canvas.addEventListener('touchend', function (e) {
         if (line.checked) {
-            drawLine(e);
+            //drawLine(e);
         }
-        mousedown = false;
+        mouseDown = false;
     });
     //convert two finger zoom to scroll 
-    
-    var ctx = canvas.getContext('2d');
+
+    var context = canvas.getContext('2d');
 
     var width = canvas.width;
     var height = canvas.height;
-    
+
     var gridSize = 10;
     var gridWidth = width / gridSize;
     var gridHeight = height / gridSize;
@@ -351,7 +316,7 @@
         } else {
             zoom /= 1.1;
         }
-        if(zoom < .2){
+        if (zoom < .2) {
             zoom = .2;
         }
         //get pixel mouse is over
@@ -371,28 +336,41 @@
         }
     }
     //draw on grid
-    var mousedown = false;
+    var mouseDown = false;
+    var isDrawing = false;
     canvas.addEventListener('mousedown', function (e) {
-        mousedown = true;
-        var rect = canvas.getBoundingClientRect();
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-        startPoint = { x: x, y: y };
+        startPoint = { x: e.offsetX, y: e.offsetY };
+        if(line.checked){
+            startingGrid = grid.map(row => [...row]);
+        }
+        mouseDown = true;
         if (!line.checked) {
             draw(e);
         }
     });
     canvas.addEventListener('mouseup', function (e) {
-        if (line.checked) {
-            drawLine(e);
+        if (line.checked && startPoint) {
+            endPoint = { x: e.offsetX, y: e.offsetY };
+            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+            console.log(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         }
-        mousedown = false;
-        //startPoint = null;
+        startPoint = null;
+        mouseDown = false;
     });
     //mouse move event
     canvas.addEventListener('mousemove', function (e) {
         if (!line.checked) {
             draw(e);
+        }
+        if (line.checked && startPoint) {
+            endPoint = { x: e.offsetX, y: e.offsetY };
+            //draw the grid to be starting grid
+            grid = startingGrid.map(row => [...row]);
+            //redraw only changed pixels
+            redrawGrid();
+            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+
+
         }
 
     });
@@ -442,27 +420,31 @@
             for (var j = 0; j < gridHeight; j++) {
 
                 if (grid[i][j] === '') {
-                    ctx.clearRect(i * gridSize, j * gridSize, gridSize, gridSize);
+                    context.clearRect(i * gridSize, j * gridSize, gridSize, gridSize);
                 } else {
-                    ctx.fillStyle = grid[i][j];
-                    ctx.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
+                    context.fillStyle = grid[i][j];
+                    context.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
                 }
             }
         }
-        ctx.strokeStyle = 'black';
+        context.strokeStyle = 'black';
     }
     //check if pen or eraser is selected
     function draw(e) {
+        endPoint = { x: e.offsetX, y: e.offsetY };
+
+        grid = grid.map(row => row.map(cell => cell.trim()));
         //add to history
-        if (!mousedown) {
+        if (!mouseDown) {
+
             return;
         }
         if (pen.checked) {
             pushToHistory(grid.map(row => [...row]));
-            drawPixel(e, ps);
+            drawPixel(e, penSize);
         } else if (eraser.checked) {
             pushToHistory(grid.map(row => [...row]));
-            erasePixel(e, ps);
+            erasePixel(e, penSize);
         } else if (fill.checked) {
             pushToHistory(grid.map(row => [...row]));
             fillPixel(e);
@@ -479,40 +461,66 @@
         color = grid[i][j];
         wheel.value = colourNameToHex(color);
     }
-
-    //draw line
-    function drawLine(e, penSize) {
-
-        var rect = canvas.getBoundingClientRect();
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-        var endPoint = { x: x, y: y };
-
-        // Convert the start and end points to grid coordinates
-        var i0 = Math.floor(startPoint.x / gridSize);
-        var j0 = Math.floor(startPoint.y / gridSize);
-        var i1 = Math.floor(endPoint.x / gridSize);
-        var j1 = Math.floor(endPoint.y / gridSize);
-
-        // Use Bresenham's line algorithm to determine which points in the grid to color
-        var dx = Math.abs(i1 - i0);
-        var dy = Math.abs(j1 - j0);
-        var sx = (i0 < i1) ? 1 : -1;
-        var sy = (j0 < j1) ? 1 : -1;
-        var err = dx - dy;
-        while (true) {
-            grid[i0][j0] = color;  // color the point
-            ctx.fillStyle = color;
-            ctx.fillRect(i0 * gridSize, j0 * gridSize, gridSize, gridSize);
-
-            if (i0 === i1 && j0 === j1) break;
-            var e2 = 2 * err;
-            if (e2 > -dy) { err -= dy; i0 += sx; }
-            if (e2 < dx) { err += dx; j0 += sy; }
+    var startPoint = null;
+    var endPoint = null;
+    var queue2 = [];
+    function drawLine(x1, y1, x2, y2, ps) {
+        prevGrid = grid.map(row => [...row]);
+        pushToHistory(prevGrid);
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var m = dy / dx;
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var m = dy / dx;
+        if (Math.abs(m) <= 1) {
+            // Slope is between -1 and 1, iterate over x values
+            if (dx < 0) {
+                [x1, x2] = [x2, x1];
+                [y1, y2] = [y2, y1];
+            }
+            for (var x = x1; x <= x2; x++) {
+                var y = Math.round(m * (x - x1) + y1);
+                drawPixelCoords(x,y,ps)
+                
+            }
+        } else {
+            // Slope is outside -1 and 1, iterate over y values
+            if (dy < 0) {
+                [x1, x2] = [x2, x1];
+                [y1, y2] = [y2, y1];
+            }
+            for (var y = y1; y <= y2; y++) {
+                var x = Math.round((y - y1) / m + x1);
+                drawPixelCoords(x,y,ps);
+                
+            }
         }
 
     }
-    //draw pixel
+
+    function drawPixelCoords(x,y,penSize){
+        var i = Math.floor(x / gridSize);
+        var j = Math.floor(y / gridSize);
+        // Draw a circle of pixels around the point (i, j)
+        for (var di = -penSize; di <= penSize; di++) {
+            for (var dj = -penSize; dj <= penSize; dj++) {
+                // Calculate the distance to the center point
+                var dist = Math.sqrt(di * di + dj * dj);
+                // If the distance is less than or equal to the penSize, color the point
+                if (dist <= penSize) {
+                    var ii = i + di;
+                    var jj = j + dj;
+                    // Check if the point is inside the grid
+                    if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
+                        grid[ii][jj] = color;
+                        context.fillStyle = color;
+                        context.fillRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
+                    }
+                }
+            }
+        }
+    }
     function drawPixel(e, penSize) {
         var rect = canvas.getBoundingClientRect();
         var x = e.pageX - window.scrollX - rect.left;
@@ -534,8 +542,8 @@
                     // Check if the point is inside the grid
                     if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
                         grid[ii][jj] = color;
-                        ctx.fillStyle = color;
-                        ctx.fillRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
+                        context.fillStyle = color;
+                        context.fillRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
                     }
                 }
             }
@@ -563,7 +571,7 @@
                     if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
                         var rect = canvas.getBoundingClientRect();
                         grid[ii][jj] = '';
-                        ctx.clearRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
+                        context.clearRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
 
 
                     }
@@ -580,6 +588,7 @@
         }
         return false;
     }
+
     function fillPixel(e) {
         var rect = canvas.getBoundingClientRect();
         var x = (e.pageX - window.scrollX - rect.left) / zoom;
@@ -592,10 +601,12 @@
         //oldfloodFill(i, j, targetColor, color);
         floodFill(i, j, targetColor, color);
         console.log(performance.now() - start + 'ms');
+        redrawGrid();
     }
-    //create empty stack; Q
+
     //flood fill algorithm
     function floodFill(x, y, targetColor, replacementColor) {
+        //create empty stack
         var queue = [[x, y]];
         var visited = new Set();
         //add to stack
@@ -621,40 +632,18 @@
             queue.push([i - 1, j]);
             queue.push([i, j + 1]);
             queue.push([i, j - 1]);
-
-
-
         }
     }
+
     function redrawPixel(i, j) {
-        ctx.fillStyle = grid[i][j];
-        ctx.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
+        context.fillStyle = grid[i][j];
+        context.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
     }
-    let checked = [];
-    function oldfloodFill(x, y, targetColor, replacementColor) {
-        //recursively fill the pixel log number of steps
-        if (x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) {
-            return;
-        }
-        if (grid[x][y] !== targetColor) {
-            return;
-        }
-        if (includesCoordinate(checked, [x, y])) {
-            return;
-        }
-        checked.push([x, y]);
-        grid[x][y] = replacementColor;
-        redrawPixel(x, y);
-        oldfloodFill(x + 1, y, targetColor, replacementColor);
-        oldfloodFill(x - 1, y, targetColor, replacementColor);
-        oldfloodFill(x, y + 1, targetColor, replacementColor);
-        oldfloodFill(x, y - 1, targetColor, replacementColor);
 
-    }
     //clear button, remove all pixels, and redraw the grid
     var clear = document.getElementById('clear');
     clear.addEventListener('click', function () {
-        ctx.clearRect(0, 0, width, height);
+        context.clearRect(0, 0, width, height);
         for (var i = 0; i < gridWidth; i++) {
             for (var j = 0; j < gridHeight; j++) {
                 grid[i][j] = '';
@@ -663,8 +652,7 @@
 
     });
 
-
-    //pen, eraser, fill tool
+    //make sure that all other tools aren't selected 
     var pen = document.getElementById('pen');
     pen.checked = true;
     pen.addEventListener('click', function () {
@@ -673,6 +661,7 @@
         fill.checked = false;
         eyedropper.checked = false;
     });
+
     var eraser = document.getElementById('eraser');
     eraser.addEventListener('click', function () {
         pen.checked = false;
@@ -681,6 +670,7 @@
         line.checked = false;
         eyedropper.checked = false;
     });
+
     var fill = document.getElementById('fill');
     fill.addEventListener('click', function () {
         pen.checked = false;
@@ -697,6 +687,7 @@
         line.checked = true;
         eyedropper.checked = false;
     });
+
     eyedropper.addEventListener('click', function () {
         pen.checked = false;
         eraser.checked = false;
