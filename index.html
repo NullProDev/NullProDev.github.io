@@ -473,7 +473,11 @@
         var i = Math.floor(x / gridSize);
         var j = Math.floor(y / gridSize);
         color = grid[i][j];
-        wheel.value = colourNameToHex(color);
+        if(color.includes("#")){
+            wheel.value = color;
+        }else{
+            wheel.value = colourNameToHex(color);
+        }
     }
     var startPoint = null;
     var endPoint = null;
