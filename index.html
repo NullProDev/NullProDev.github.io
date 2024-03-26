@@ -260,10 +260,11 @@
     var canvas = document.getElementById('canvas');
     canvas.addEventListener('touchstart', function (e) {
         mouseDown = true;
-        var rect = canvas.getBoundingClientRect();
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-        startPoint = { x: x, y: y };
+        startPoint = { x: e.offsetX, y: e.offsetY };
+        if(line.checked){
+            startingGrid = grid.map(row => [...row]);
+        }
+        mouseDown = true;
         if (!line.checked) {
             draw(e);
         }
@@ -288,12 +289,25 @@
                 color = grid[i][j];
                 wheel.value = colourNameToHex(color);
             }
+        } 
+        if (line.checked && startPoint) {
+            endPoint = { x: e.offsetX, y: e.offsetY };
+            //draw the grid to be starting grid
+            grid = startingGrid.map(row => [...row]);
+            //redraw only changed pixels
+            redrawGrid();
+            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+
+
         }
     });
     canvas.addEventListener('touchend', function (e) {
-        if (line.checked) {
-            //drawLine(e);
+        if (line.checked && startPoint) {
+            endPoint = { x: e.offsetX, y: e.offsetY };
+            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+            console.log(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         }
+        startPoint = null;
         mouseDown = false;
     });
     //convert two finger zoom to scroll 
