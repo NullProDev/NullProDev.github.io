@@ -144,6 +144,17 @@
     }
 </style>
 <script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+
+    var width = canvas.width;
+    var height = canvas.height;
+
+    var gridSize = 5;
+    var gridWidth = width / gridSize;
+    var gridHeight = height / gridSize;
+    var grid = [];
+    var zoom = 1;
     //export
     var exportButton = document.getElementById('export');
     exportButton.addEventListener('click', function () {
@@ -257,11 +268,9 @@
 
     //split canvas into a grid and only allow drawing in the grid
     //mobile convert touch to mouse events
-    var canvas = document.getElementById('canvas');
     canvas.addEventListener('touchstart', function (e) {
-        mouseDown = true;
         startPoint = { x: e.offsetX, y: e.offsetY };
-        if(line.checked){
+        if (line.checked) {
             startingGrid = grid.map(row => [...row]);
         }
         mouseDown = true;
@@ -274,54 +283,34 @@
         if (!line.checked) {
             draw(e);
         }
-        if (e.touches.length === 2) {
-            var touch1 = e.touches[0];
-            var touch2 = e.touches[1];
-            var dx = touch1.clientX - touch2.clientX;
-            var dy = touch1.clientY - touch2.clientY;
-            var distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance > 100) {
-                var rect = canvas.getBoundingClientRect();
-                var x = (touch1.pageX - window.scrollX - rect.left) / zoom;
-                var y = (touch1.pageY - window.scrollY - rect.top) / zoom;
-                var i = Math.floor(x / gridSize);
-                var j = Math.floor(y / gridSize);
-                color = grid[i][j];
-                wheel.value = colourNameToHex(color);
-            }
-        } 
         if (line.checked && startPoint) {
             endPoint = { x: e.offsetX, y: e.offsetY };
             //draw the grid to be starting grid
             grid = startingGrid.map(row => [...row]);
             //redraw only changed pixels
             redrawGrid();
-            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
-
+            if (mouseDown) {
+                drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+                pushToHistory(grid.map(row => [...row]));
+            }
 
         }
     });
     canvas.addEventListener('touchend', function (e) {
         if (line.checked && startPoint) {
             endPoint = { x: e.offsetX, y: e.offsetY };
-            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
-            console.log(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            //drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+            //console.log(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            //save to undo
+            pushToHistory(grid.map(row => [...row]));
         }
         startPoint = null;
         mouseDown = false;
     });
     //convert two finger zoom to scroll 
 
-    var context = canvas.getContext('2d');
 
-    var width = canvas.width;
-    var height = canvas.height;
 
-    var gridSize = 10;
-    var gridWidth = width / gridSize;
-    var gridHeight = height / gridSize;
-    var grid = [];
-    var zoom = 1;
     //zoom in and out of the canvas with the mouse wheel
     canvas.addEventListener('wheel', function (e) {
         e.preventDefault();
@@ -353,8 +342,9 @@
     var mouseDown = false;
     var isDrawing = false;
     canvas.addEventListener('mousedown', function (e) {
+        pushToHistory(grid.map(row => [...row]));
         startPoint = { x: e.offsetX, y: e.offsetY };
-        if(line.checked){
+        if (line.checked) {
             startingGrid = grid.map(row => [...row]);
         }
         mouseDown = true;
@@ -365,8 +355,7 @@
     canvas.addEventListener('mouseup', function (e) {
         if (line.checked && startPoint) {
             endPoint = { x: e.offsetX, y: e.offsetY };
-            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
-            console.log(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            pushToHistory(grid.map(row => [...row]));
         }
         startPoint = null;
         mouseDown = false;
@@ -382,8 +371,12 @@
             grid = startingGrid.map(row => [...row]);
             //redraw only changed pixels
             redrawGrid();
-            drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+            if (mouseDown) {
+                var start = performance.now();
+                drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
+                console.log(performance.now() - start + 'ms');
 
+            }
 
         }
 
@@ -473,51 +466,54 @@
         var i = Math.floor(x / gridSize);
         var j = Math.floor(y / gridSize);
         color = grid[i][j];
-        if(color.includes("#")){
+        if (color.includes("#")) {
             wheel.value = color;
-        }else{
+        } else {
             wheel.value = colourNameToHex(color);
         }
     }
     var startPoint = null;
     var endPoint = null;
     var queue2 = [];
-    function drawLine(x1, y1, x2, y2, ps) {
-        prevGrid = grid.map(row => [...row]);
-        pushToHistory(prevGrid);
-        var dx = x2 - x1;
-        var dy = y2 - y1;
-        var m = dy / dx;
-        var dx = x2 - x1;
-        var dy = y2 - y1;
-        var m = dy / dx;
-        if (Math.abs(m) <= 1) {
-            // Slope is between -1 and 1, iterate over x values
-            if (dx < 0) {
-                [x1, x2] = [x2, x1];
-                [y1, y2] = [y2, y1];
-            }
-            for (var x = x1; x <= x2; x++) {
-                var y = Math.round(m * (x - x1) + y1);
-                drawPixelCoords(x,y,ps)
-                
-            }
+    function drawLine(x, y, x2, y2, rad) {
+        rad2 = rad * 4;
+        var s = (y2 - y) / (x2 - x);
+        var radX, radY;
+        if (s === 0) {
+            // The line is horizontal
+            radX = 0;
+            radY = rad2;
         } else {
-            // Slope is outside -1 and 1, iterate over y values
-            if (dy < 0) {
-                [x1, x2] = [x2, x1];
-                [y1, y2] = [y2, y1];
-            }
-            for (var y = y1; y <= y2; y++) {
-                var x = Math.round((y - y1) / m + x1);
-                drawPixelCoords(x,y,ps);
-                
-            }
+            var angle = Math.atan2(y2 - y, x2 - x); // angle of the line
+            radX = rad2 * Math.sin(angle); // offset in x direction
+            radY = rad2 * Math.cos(angle); // offset in y direction
         }
+        //draw a line between the edges of the circle
+        drawLinePos(x - radX, y + radY, x2 - radX, y2 + radY, 0);
+        drawLinePos(x + radX, y - radY, x2 + radX, y2 - radY, 0);
+        drawLinePos(x - radX, y + radY, x + radX, y - radY, 0);
+        drawLinePos(x2 - radX, y2 + radY, x2 + radX, y2 - radY, 0);
+        if (rad > 1) {
+            drawLine(x, y, x2, y2, rad - 1);
+        }
+        drawLinePos(x, y, x2, y2, 0);
 
     }
 
-    function drawPixelCoords(x,y,penSize){
+    function drawLinePos(x, y, x2, y2) {
+        //use bresenhams line algorithm to draw a line between x,y and x2,y2
+        var slope = (y2 - y) / (x2 - x);
+        var dx = Math.abs(x2 - x);
+        var dy = Math.abs(y2 - y);
+        var steps = Math.max(dx, dy);
+        var xInc = (x2 - x) / steps;
+        var yInc = (y2 - y) / steps;
+        for (var i = 0; i <= steps; i++) {
+            drawPixelCoords(x + i * xInc, y + i * yInc, 0);
+        }
+
+    }
+    function drawPixelCoords(x, y, penSize) {
         var i = Math.floor(x / gridSize);
         var j = Math.floor(y / gridSize);
         // Draw a circle of pixels around the point (i, j)
