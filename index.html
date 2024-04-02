@@ -364,6 +364,11 @@
         mouseDown = false;
         lastPoint = null;
     });
+    document.addEventListener('mouseup', function (e) {
+        mouseDown = false;
+        lastPoint = null;
+        startPoint = null;
+    });
     //mouse move event
     canvas.addEventListener('mousemove', function (e) {
         draw(e);
