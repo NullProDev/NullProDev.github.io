@@ -194,8 +194,7 @@
     //+- pen size
     var addPensize = document.getElementById('psplus');
     var subtractMinus = document.getElementById('psminus');
-    var pen = document.getElementById('ps');
-    var line = document.getElementById('line');
+    var penSi = document.getElementById('ps');
     addPensize.addEventListener('click', function () {
         penSize++;
         updatePenSize();
@@ -211,17 +210,11 @@
     var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white'];
     let penSize = 0;
     function updatePenSize() {
-        document.getElementById('ps').innerHTML = penSize + 1;
+        penSi.innerHTML = penSize + 1;
     }
     var eyedropper = document.getElementById('eyedropper');
     document.addEventListener('keydown', function (e) {
-        if (e.ctrlKey && e.key === 'z') {
-            undo.click();
-        }
-        if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
-            redo.click();
-        }
-        if (e.key === 'c') {
+        if ( e.key === 'c') {
             clear.click();
         }
         if (e.key === 'p') {
@@ -242,18 +235,24 @@
         if (e.key === 's') {
             circle.click();
         }
+        if (e.key === 'i') {
+            eyedropper.click();
+        }
         if (e.key === '=' || e.key === '+') {
             penSize += 1;
             updatePenSize();
-        }
-        if (e.key === 'i') {
-            eyedropper.click();
         }
         if (e.key === '-') {
             if (penSize > 0) {
                 penSize -= 1;
                 updatePenSize();
             }
+        }
+        if (e.ctrlKey && e.key === 'z') {
+            undo.click();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
+            redo.click();
         }
         // if key is a number
         if (e.key >= 0 && e.key <= 9) {
@@ -329,6 +328,7 @@
         //translate the canvas so that the mouse is always over the same pixel
         canvas.style.transformOrigin = '50% 50%';
         canvas.style.transform = 'scale(' + zoom + ')';
+        zoomInput.value = zoom;
 
     });
     //pixel art
@@ -371,9 +371,9 @@
     });
     //mouse move event
     canvas.addEventListener('mousemove', function (e) {
+        //random color
         draw(e);
     });
-
     //undo and redo
     var undo = document.getElementById('undo');
     var redo = document.getElementById('redo');
@@ -460,7 +460,7 @@
             fillPixel(e);
         } else if (eyedropper.checked) {
             eyedropperTool(e);
-        }else if (line.checked && startPoint) {
+        } else if (line.checked && startPoint) {
             endPoint = { x: e.offsetX, y: e.offsetY };
             //draw the grid to be starting grid
             grid = startingGrid.map(row => [...row]);
@@ -512,7 +512,6 @@
         var angle = Math.atan2(y2 - y, x2 - x); // angle of the line
         radX = rad2 * Math.sin(angle); // offset in x direction
         radY = rad2 * Math.cos(angle); // offset in y direction
-        //draw a line between the edges of the circle
         drawLinePos(x - radX, y + radY, x2 - radX, y2 + radY, 0);
         drawLinePos(x + radX, y - radY, x2 + radX, y2 - radY, 0);
         if (rad > 1) {
@@ -640,7 +639,7 @@
             }
         }
     }
-    drawRect = function (x1, y1, x2, y2) {
+    function drawRect (x1, y1, x2, y2) {
         if (x1 > x2) {
             var temp = x1;
             x1 = x2;
@@ -651,10 +650,11 @@
             y1 = y2;
             y2 = temp;
         }
-        drawLine(x1, y1 + penSize / 2, x2, y1 + penSize / 2, penSize);
-        drawLine(x1 + penSize / 2, y1, x1 + penSize / 2, y2, penSize);
-        drawLine(x1, y2 - penSize / 2, x2, y2 - penSize / 2, penSize);
-        drawLine(x2 - penSize / 2, y1, x2 - penSize / 2, y2, penSize);
+        drawLine(x1-(penSize*(gridSize-1)), y1, x2+(penSize*(gridSize-1)), y1, penSize);
+        drawLine(x1-(penSize*(gridSize-1)), y2, x2+(penSize*(gridSize-1)), y2, penSize);
+        drawLine(x1, y1-(penSize*(gridSize-1)), x1, y2+(penSize*(gridSize-1)), penSize);
+        drawLine(x2, y1-(penSize*(gridSize-1)), x2, y2+(penSize*(gridSize-1)), penSize);
+
 
     }
     //flood fill
