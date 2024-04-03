@@ -478,7 +478,7 @@
             grid = startingGrid.map(row => [...row]);
             redrawGrid();
             if (mouseDown) {
-                drawCircle(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+                drawCircle(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
             }
         } else if (rect.checked && startPoint) {
             endPoint = { x: e.offsetX, y: e.offsetY };
@@ -615,20 +615,20 @@
             }
         }
     }
-    function drawCircle(x1, y1, x2, y2) {
+    function drawCircle(x1, y1, x2, y2, ps) {
         var radius = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
         var x = radius;
         var y = 0;
         var err = 0;
         while (x >= y) {
-            drawPixelCoords(x1 + x, y1 + y, penSize);
-            drawPixelCoords(x1 + y, y1 + x, penSize);
-            drawPixelCoords(x1 - y, y1 + x, penSize);
-            drawPixelCoords(x1 - x, y1 + y, penSize);
-            drawPixelCoords(x1 - x, y1 - y, penSize);
-            drawPixelCoords(x1 - y, y1 - x, penSize);
-            drawPixelCoords(x1 + y, y1 - x, penSize);
-            drawPixelCoords(x1 + x, y1 - y, penSize);
+            drawPixelCoords(x1 + x, y1 + y, 0);
+            drawPixelCoords(x1 + y, y1 + x, 0);
+            drawPixelCoords(x1 - y, y1 + x, 0);
+            drawPixelCoords(x1 - x, y1 + y, 0);
+            drawPixelCoords(x1 - x, y1 - y, 0);
+            drawPixelCoords(x1 - y, y1 - x, 0);
+            drawPixelCoords(x1 + y, y1 - x, 0);
+            drawPixelCoords(x1 + x, y1 - y, 0);
             if (err <= 0) {
                 y += 1;
                 err += 2 * y + 1;
@@ -637,6 +637,10 @@
                 x -= 1;
                 err -= 2 * x + 1;
             }
+        }
+        if(ps > 0){
+            //draw a circle with smaller x and y
+            drawCircle(x1, y1, x2-1, y2-1, ps - 1);
         }
     }
     function drawRect (x1, y1, x2, y2) {
@@ -741,8 +745,6 @@
             });
         });
     });
-
-
+    console.log((![] + [])[+![]])
 </script>
-
 </html>
