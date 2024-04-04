@@ -266,7 +266,7 @@
             redo.click();
         }
         // if key is a number
-        if (e.key >= 0 && e.key <= 9 && !document.activeElement === penSi) {
+        if (e.key >= 0 && e.key <= 9 && document.activeElement !== penSi) {
             color = colors[parseInt(e.key)];
             wheel.value = colourNameToHex(color);
         }
