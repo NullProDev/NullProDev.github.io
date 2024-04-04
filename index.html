@@ -203,6 +203,9 @@
     var addPensize = document.getElementById('psplus');
     var subtractMinus = document.getElementById('psminus');
     var penSi = document.getElementById('ps');
+    penSi.addEventListener('load', function () {
+        penSi.value = penSize + 1;
+    });
     penSi.addEventListener('input', function () {
         penSize = parseInt(penSi.value) - 1;
     });
@@ -282,6 +285,7 @@
         div.style.backgroundColor = colors[i];
         div.style.display = 'inline-block';
         div.style.margin = '10px';
+        div.style.border = '1px solid black';
         div.onclick = function () {
             color = this.style.backgroundColor;
             wheel.value = colourNameToHex(color);
