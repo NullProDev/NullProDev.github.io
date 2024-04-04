@@ -32,7 +32,7 @@
             </div>
             <div class="sbs">
                 <button id="psminus">-</button>
-                <p id="ps"> 1 </p>
+                <input id="ps" value="1" />
                 <button id="psplus">+</button>
             </div>
         </div>
@@ -80,8 +80,16 @@
     .sbs {
         display: flex;
         flex-direction: row;
+        vertical-align: middle;
+        align-items: center;
+        
     }
-
+    #ps{
+        height: 30px;
+        text-align: center;
+        width: 30px;
+        vertical-align: middle;
+    }
     button {
         border: 0;
         background-color: white;
@@ -195,6 +203,9 @@
     var addPensize = document.getElementById('psplus');
     var subtractMinus = document.getElementById('psminus');
     var penSi = document.getElementById('ps');
+    penSi.addEventListener('input', function () {
+        penSize = parseInt(penSi.value) - 1;
+    });
     addPensize.addEventListener('click', function () {
         penSize++;
         updatePenSize();
@@ -210,7 +221,7 @@
     var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white'];
     let penSize = 0;
     function updatePenSize() {
-        penSi.innerHTML = penSize + 1;
+        penSi.value= penSize + 1;
     }
     var eyedropper = document.getElementById('eyedropper');
     document.addEventListener('keydown', function (e) {
@@ -255,7 +266,7 @@
             redo.click();
         }
         // if key is a number
-        if (e.key >= 0 && e.key <= 9) {
+        if (e.key >= 0 && e.key <= 9 && !document.activeElement === penSi) {
             color = colors[parseInt(e.key)];
             wheel.value = colourNameToHex(color);
         }
