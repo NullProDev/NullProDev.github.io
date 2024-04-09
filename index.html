@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Drawing</title>
 </head>
 
 <body>
@@ -23,6 +23,7 @@
                 <input type="radio" id="eyedropper" name=""> Eye Dropper <br>
                 <input type="radio" id="circle" name=""> Circle <br>
                 <input type="radio" id="rect" name=""> Rectangle <br>
+                <input type="radio" id="select" name=""> <p id="select">Select</p> <br>
                 <input type="range" id="zoom" value="1" max="5" mix="1" step=".1" name=""> Zoom <br>
                 <button id="export">Export</button>
             </div>
@@ -30,19 +31,43 @@
                 <button id="undo">Undo</button>
                 <button id="redo">Redo</button>
             </div>
+
             <div class="sbs">
                 <button id="psminus">-</button>
                 <input id="ps" value="1" />
                 <button id="psplus">+</button>
-            </div>
+            </div><br>
+            Pixel Size <input id="grid" type="number" value="2" min="1" />
         </div>
     </div>
     <div id="container">
         <div id="color-wheel"></div>
-        <input type="color" id="wheel" />
+        <div id="border">
+            <input type="color" id="wheel" />
+            <button id="addpalette" class="">Add to Palette</button>
+            <button id="importP">Import Palette</button>
+            <button id="exportP">Export Palette</button>
+        </div>
     </div>
 </body>
 <style>
+    #select {
+        display: none;
+    }
+    #border {
+        border: 1px solid black;
+        padding: 10px;
+        margin-top: 0px;
+        margin-bottom: 0;
+        padding: 0 1em 0 1em;
+        /* align the buttons at the top */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+    }
+
     #canvascont {
         width: 800px;
         height: 600px;
@@ -82,22 +107,26 @@
         flex-direction: row;
         vertical-align: middle;
         align-items: center;
-        
+
     }
-    #ps{
+
+    #ps,
+    #grid {
         height: 30px;
         text-align: center;
         width: 30px;
         vertical-align: middle;
     }
+
     button {
         border: 0;
-        background-color: white;
+        background-color: inherit;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
+
     }
 
     #app {
@@ -115,6 +144,8 @@
     #container {
         margin-top: 20px;
         display: flex;
+        vertical-align: middle;
+        align-items: top;
     }
 
     #wheel {
@@ -160,18 +191,32 @@
 
     var width = canvas.width;
     var height = canvas.height;
-
     var gridSize = 5;
     var gridWidth = width / gridSize;
     var gridHeight = height / gridSize;
     var grid = [];
     var zoom = 1;
-
+    var gridInput = document.getElementById('grid');
+    gridInput.value = gridSize;
+    gridInput.addEventListener('input', function () {
+        gridSize = parseInt(gridInput.value);
+        gridWidth = width / gridSize;
+        gridHeight = height / gridSize;
+        grid = [];
+        for (var i = 0; i < gridWidth; i++) {
+            grid[i] = [];
+            for (var j = 0; j < gridHeight; j++) {
+                grid[i][j] = '';
+            }
+        }
+        points = [];
+        redrawGrid();
+    });
     var zoomInput = document.getElementById('zoom');
     zoomInput.addEventListener('input', function () {
-        if(zoomInput.value < .2){
+        if (zoomInput.value < .2) {
             zoomInput.value = .2;
-        } 
+        }
         zoom = zoomInput.value;
         canvas.style.transform = 'scale(' + zoom + ')';
     });
@@ -184,13 +229,30 @@
             return;
         }
         var dataURL = canvas.toDataURL();
+        //divide width and height by gridSize
+        var canvas2 = document.createElement('canvas');
+        var context2 = canvas2.getContext('2d');
+        canvas2.width = gridWidth;
+        canvas2.height = gridHeight;
+        for (var i = 0; i < gridWidth; i++) {
+            for (var j = 0; j < gridHeight; j++) {
+                if (grid[i][j] !== '') {
+                    context2.fillStyle = grid[i][j];
+                    context2.fillRect(i, j, 1, 1);
+                }
+            }
+        }
         var a = document.createElement('a');
-        a.href = dataURL;
+        a.href = canvas2.toDataURL();
         a.download = 'pixel-art.png';
         a.click();
     });
     function colourNameToHex(colour) {
-
+        //if rgb
+        if (colour.includes('rgb')) {
+            var rgb = colour.match(/\d+/g);
+            return "#" + ((1 << 24) + (parseInt(rgb[0]) << 16) + (parseInt(rgb[1]) << 8) + parseInt(rgb[2])).toString(16).slice(1);
+        }
         var allColors = {
             "black": "#000000", "blue": "#0000ff", "brown": "#a52a2a", "cyan": "#00ffff", "gold": "#ffd700", "gray": "#808080", "green": "#008000", "indigo": "#4b0082", "magenta": "#ff00ff", "orange": "#ffa500", "pink": "#ffc0cb", "purple": "#800080", "red": "#ff0000", "violet": "#ee82ee", "white": "#ffffff", "yellow": "#ffff00"
         };
@@ -200,11 +262,24 @@
         return false;
     }
     //+- pen size
+    document.addEventListener('load', function () {
+        penSize = 0;
+        pen.checked = true;
+        eraser.checked = false;
+        rect.checked = false;
+        circle.checked = false;
+        line.checked = false;
+        fill.checked = false;
+        eyedropper.checked = false;
+
+    });
+
     var addPensize = document.getElementById('psplus');
     var subtractMinus = document.getElementById('psminus');
     var penSi = document.getElementById('ps');
     penSi.addEventListener('load', function () {
-        penSi.value = penSize + 1;
+        penSi.value = 1;
+        penSize = 0;
     });
     penSi.addEventListener('input', function () {
         penSize = parseInt(penSi.value) - 1;
@@ -213,22 +288,72 @@
         penSize++;
         updatePenSize();
     });
-
     subtractMinus.addEventListener('click', function () {
         if (penSize > 0) {
             penSize--;
         }
         updatePenSize();
     });
+
     //undo and redo with ctrl z and ctrl shift z
     var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white'];
+    var addPalette = document.getElementById('addpalette');
+    addPalette.addEventListener('click', function () {
+        colors.push(wheel.value);
+        var div = document.createElement('div');
+        div.style.width = '50px';
+        div.style.height = '50px';
+        div.style.backgroundColor = wheel.value;
+        div.style.display = 'inline-block';
+        div.style.margin = '10px';
+        div.style.border = '1px solid black';
+        div.onclick = function () {
+            color = this.style.backgroundColor;
+            wheel.value = colourNameToHex(color);
+        };
+        colorWheel.appendChild(div);
+        if (colors.length > 9) {
+            colors.shift();
+            colorWheel.removeChild(colorWheel.firstChild);
+        }
+    });
+    var importPalette = document.getElementById('importP');
+    importPalette.addEventListener('click', function () {
+        var palette = prompt('Enter a palette');
+        if (palette) {
+            colors = palette.split(',');
+            colorWheel.innerHTML = '';
+            for (var i = 0; i < colors.length; i++) {
+                var div = document.createElement('div');
+                div.style.width = '50px';
+                div.style.height = '50px';
+                div.style.backgroundColor = colors[i];
+                div.style.display = 'inline-block';
+                div.style.margin = '10px';
+                div.style.border = '1px solid black';
+                div.onclick = function () {
+                    color = this.style.backgroundColor;
+                    wheel.value = colourNameToHex(color);
+                };
+                colorWheel.appendChild(div);
+            }
+        }
+    });
+    var exportPalette = document.getElementById('exportP');
+    exportPalette.addEventListener('click', function () {
+        var palette = colors.join(',');
+        var a = document.createElement('a');
+        a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(palette);
+        a.download = 'palette.txt';
+        a.click();
+    });
     let penSize = 0;
     function updatePenSize() {
-        penSi.value= penSize + 1;
+        penSi.value = penSize + 1;
     }
     var eyedropper = document.getElementById('eyedropper');
     document.addEventListener('keydown', function (e) {
-        if ( e.key === 'c') {
+        if (e.key === 'c') {
             clear.click();
         }
         if (e.key === 'p') {
@@ -268,8 +393,40 @@
         if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
             redo.click();
         }
+        if (e.key === "," || e.key === "<") {
+            if (parseInt(gridInput.value) < 1) {
+                return;
+            }
+            gridInput.value = parseInt(gridInput.value) - 1;
+            gridSize = parseInt(gridInput.value);
+            gridWidth = width / gridSize;
+            gridHeight = height / gridSize;
+            grid = [];
+            for (var i = 0; i < gridWidth; i++) {
+                grid[i] = [];
+                for (var j = 0; j < gridHeight; j++) {
+                    grid[i][j] = '';
+                }
+            }
+            points = [];
+            redrawGrid();
+        }
+        if (e.key === "." || e.key === ">") {
+            gridInput.value = parseInt(gridInput.value) + 1;
+            gridSize = parseInt(gridInput.value);
+            gridWidth = width / gridSize;
+            gridHeight = height / gridSize;
+            grid = [];
+            for (var i = 0; i < gridWidth; i++) {
+                grid[i] = [];
+                for (var j = 0; j < gridHeight; j++) {
+                    grid[i][j] = '';
+                }
+            }
+            redrawGrid();
+        }
         // if key is a number
-        if (e.key >= 0 && e.key <= 9 && document.activeElement !== penSi) {
+        if (e.key >= 0 && e.key <= 9 && document.activeElement !== penSi && document.activeElement !== gridInput) {
             color = colors[parseInt(e.key)];
             wheel.value = colourNameToHex(color);
         }
@@ -324,10 +481,6 @@
         mouseDown = false;
         lastPoint = null;
     });
-    //convert two finger zoom to scroll 
-
-
-
     //zoom in and out of the canvas with the mouse wheel
     canvas.addEventListener('wheel', function (e) {
         e.preventDefault();
@@ -352,10 +505,11 @@
         for (var j = 0; j < gridHeight; j++) {
             // erase all
             grid[i][j] = '';
-
-
         }
     }
+
+    var selectTool = document.getElementById('select');
+
     //draw on grid
     var mouseDown = false;
     var isDrawing = false;
@@ -369,6 +523,8 @@
         if (!line.checked) {
             draw(e);
         }
+        moving = isInsideSelection(e);
+        resizing = isRisingSelection(e);
     });
     canvas.addEventListener('mouseup', function (e) {
         if (line.checked && startPoint) {
@@ -378,15 +534,36 @@
         startPoint = null;
         mouseDown = false;
         lastPoint = null;
+        resizing = false;
+        moving = false;
     });
     document.addEventListener('mouseup', function (e) {
         mouseDown = false;
         lastPoint = null;
         startPoint = null;
+        resizing = false;
+        moving = false;
+        initialMouseX = undefined;
+        initialMouseY = undefined;
     });
+    var resizing = false;
+    var selectedCorner = null;
+    var moving = false;
     //mouse move event
     canvas.addEventListener('mousemove', function (e) {
         //random color
+        if (selectTool.checked) {
+            mousePointer(e);
+            selectT(e);
+            console.log("m", moving, "r", resizing)
+        }
+        if (mouseDown) {
+            if (resizing) {
+                resizeSelection(e);
+            } else if (moving) {
+                moveSelection(e);
+            }
+        }
         draw(e);
     });
     //undo and redo
@@ -452,19 +629,18 @@
     var circle = document.getElementById('circle');
     var rect = document.getElementById('rect');
     var lastPoint = null;
+    var selection = [];
     function draw(e) {
-        endPoint = { x: e.offsetX, y: e.offsetY };
-
         grid = grid.map(row => row.map(cell => cell.trim()));
         //add to history
         if (!mouseDown) {
             return;
         }
         if (pen.checked) {
-            pushToHistory(grid.map(row => [...row]));
+            //pushToHistory(grid.map(row => [...row]));
             //draw a line between the last point and the current point
             if (lastPoint) {
-                drawLine(lastPoint.x, lastPoint.y, e.offsetX, e.offsetY, penSize);
+                drawLine(lastPoint.x, lastPoint.y, e.offsetX, e.offsetY, Math.round(penSize / 4 * gridSize));
             }
             drawPixel(e, penSize);
         } else if (eraser.checked) {
@@ -504,6 +680,187 @@
             }
         }
     }
+    function isInsideSelection(e) {
+        if (points.length !== 4) {
+            return false;
+        }
+        var rect = canvas.getBoundingClientRect();
+        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
+        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
+        var minX = Math.min(points[0].x, points[1].x, points[2].x, points[3].x);
+        var maxX = Math.max(points[0].x, points[1].x, points[2].x, points[3].x);
+        var minY = Math.min(points[0].y, points[1].y, points[2].y, points[3].y);
+        var maxY = Math.max(points[0].y, points[1].y, points[2].y, points[3].y);
+        var offsetX = 5;
+        var offsetY = 5;
+        var minX = minX + offsetX;
+        var maxX = maxX - offsetX;
+        var minY = minY + offsetY;
+        var maxY = maxY - offsetY;
+        if (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY) {
+            return true;
+        }
+        return false;
+    }
+    function isRisingSelection(e) {
+        if (points.length !== 4) {
+            return false;
+        }
+        var rect = canvas.getBoundingClientRect();
+        // adjust the mouse coordinates based on the zoom level
+        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
+        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
+        for (var i = 0; i < points.length; i++) {
+            var dx = mouseX - points[i].x;
+            var dy = mouseY - points[i].y;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance <= 10) {
+                return true;
+            }
+        }
+        return resizing;
+    }
+    var points = [];
+    function mousePointer(e) {
+        var rect = canvas.getBoundingClientRect();
+        //fix when zoomed in
+        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
+        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
+        var overPoint = false;
+        if (points.length === 0) {
+            canvas.style.cursor = 'default';
+        }
+        for (var i = 0; i < points.length; i++) {
+            var dx = mouseX - points[i].x;
+            var dy = mouseY - points[i].y;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance <= 20) {
+                selectedCorner = i;
+                overPoint = true;
+                //use nswe or nsew to determine cursor
+                if (i === 0 || i === 2) {
+                    canvas.style.cursor = 'nwse-resize';
+                } else if (i === 1 || i === 3) {
+                    canvas.style.cursor = 'nesw-resize';
+                }
+                return;
+            }
+        }
+        if (!overPoint) {
+            if (isInsideSelection(e)) {
+                canvas.style.cursor = 'move';
+            } else {
+                canvas.style.cursor = 'default';
+            }
+        }
+
+    }
+    function selectT(e) {
+        if (resizing || moving) {
+            return;
+        }
+
+        var rect = canvas.getBoundingClientRect();
+        //fix zoom
+        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
+        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
+        //create 4 points
+        if (!mouseDown) {
+            return;
+        }
+        resizing = false;
+        moving = false;
+        startX = startPoint.x;
+        startY = startPoint.y;
+        var x = (e.offsetX - rect.left) / zoom - canvas.offsetLeft;
+        var y = (e.offsetY - rect.top) / zoom - canvas.offsetTop;
+        var minX = Math.min(startX, x);
+        var maxX = Math.max(startX, x);
+        var minY = Math.min(startY, y);
+        var maxY = Math.max(startY, y);
+        points = [{ x: minX, y: minY }, { x: maxX, y: minY }, { x: maxX, y: maxY }, { x: minX, y: maxY }];
+        if (points.length === 4) {
+            drawSelection(startX, startY, x, y);
+        }
+    }
+    function drawSelection(startX, startY, x, y) {
+        startX = Math.round(startX / gridSize) * gridSize;
+        startY = Math.round(startY / gridSize) * gridSize;
+        x = Math.round(x / gridSize) * gridSize;
+        y = Math.round(y / gridSize) * gridSize;
+
+        //lock the corners to the grid
+        redrawGrid();
+        context.strokeStyle = 'black';
+        context.lineWidth = 1;
+        context.strokeRect(startX, startY, x - startX, y - startY);
+        context.fillStyle = 'white';
+        context.beginPath();
+        context.arc(startX, startY, 5, 0, 2 * Math.PI);
+        context.fill();
+        context.stroke();
+        context.beginPath();
+        context.arc(x, startY, 5, 0, 2 * Math.PI);
+        context.fill();
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, 5, 0, 2 * Math.PI);
+        context.fill();
+        context.stroke();
+        context.beginPath();
+        context.arc(startX, y, 5, 0, 2 * Math.PI);
+        context.fill();
+        context.stroke();
+
+
+    }
+    function resizeSelection(e) {
+        if (moving) {
+            return;
+        }
+        // keep opposite corner anchored and move the other corners based on the mouse position
+        var rect = canvas.getBoundingClientRect();
+        // adjust the mouse coordinates based on the zoom level
+        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
+        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
+        var oppositeCorner = (selectedCorner + 2) % 4;
+        drawSelection(points[oppositeCorner].x, points[oppositeCorner].y, mouseX, mouseY);
+        newPoints = []
+        var newWidth = points[oppositeCorner].x - mouseX;
+        var newHeight = points[oppositeCorner].y - mouseY;
+        newPoints[oppositeCorner] = { x: points[oppositeCorner].x, y: points[oppositeCorner].y };
+        newPoints[(oppositeCorner + 1) % 4] = { x: mouseX, y: points[oppositeCorner].y };
+        newPoints[(oppositeCorner + 2) % 4] = { x: mouseX, y: mouseY };
+        newPoints[(oppositeCorner + 3) % 4] = { x: points[oppositeCorner].x, y: mouseY };
+        points = newPoints;
+    }
+    var initialMouseX, initialMouseY;
+    function moveSelection(e) {
+        var rect = canvas.getBoundingClientRect();
+        // adjust the mouse coordinates based on the zoom level
+        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
+        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
+        if (initialMouseX === undefined || initialMouseY === undefined) {
+            initialMouseX = mouseX;
+            initialMouseY = mouseY;
+        }
+        var dx = mouseX - initialMouseX;
+        var dy = mouseY - initialMouseY;
+        var newPoints = points.map((point, i) => {
+            var newX = point.x + dx;
+            var newY = point.y + dy;
+            // snap the new position to the grid
+            newX = Math.round(newX / gridSize) * gridSize;
+            newY = Math.round(newY / gridSize) * gridSize;
+            return { x: newX, y: newY };
+        });
+        initialMouseX = mouseX;
+        initialMouseY = mouseY;
+        redrawGrid();
+        drawSelection(newPoints[0].x, newPoints[0].y, newPoints[2].x, newPoints[2].y);
+        points = newPoints;
+
+    }
     function eyedropperTool(e) {
         var rect = canvas.getBoundingClientRect();
         var x = (e.pageX - window.scrollX - rect.left) / zoom;
@@ -522,15 +879,17 @@
     var queue2 = [];
     function drawLine(x, y, x2, y2, rad) {
         rad2 = rad * 4;
-        var s = (y2 - y) / (x2 - x);
-        var radX, radY;
-        var angle = Math.atan2(y2 - y, x2 - x); // angle of the line
-        radX = rad2 * Math.sin(angle); // offset in x direction
-        radY = rad2 * Math.cos(angle); // offset in y direction
+        var dx = x2 - x;
+        var dy = y2 - y;
+        var len = Math.sqrt(dx * dx + dy * dy);
+        var radX = rad2 * dy / len;
+        var radY = rad2 * dx / len;
         drawLinePos(x - radX, y + radY, x2 - radX, y2 + radY, 0);
         drawLinePos(x + radX, y - radY, x2 + radX, y2 - radY, 0);
-        if (rad > 1) {
-            drawLine(x, y, x2, y2, rad - 1);
+        //as grid size decreases, the number of intervals decreases, at 5 it should be 1, at 2 it should be .1
+        var intervals = Math.max(1, Math.round(rad / 5)) / 10;
+        if (rad > intervals) {
+            drawLine(x, y, x2, y2, rad - intervals);
         }
         drawLinePos(x, y, x2, y2, 0);
 
@@ -653,12 +1012,12 @@
                 err -= 2 * x + 1;
             }
         }
-        if(ps > 0){
+        if (ps > 0) {
             //draw a circle with smaller x and y
-            drawCircle(x1, y1, x2-1, y2-1, ps - 1);
+            drawCircle(x1, y1, x2 - 1, y2 - 1, ps - 1);
         }
     }
-    function drawRect (x1, y1, x2, y2) {
+    function drawRect(x1, y1, x2, y2) {
         if (x1 > x2) {
             var temp = x1;
             x1 = x2;
@@ -669,10 +1028,10 @@
             y1 = y2;
             y2 = temp;
         }
-        drawLine(x1-(penSize*(gridSize-1)), y1, x2+(penSize*(gridSize-1)), y1, penSize);
-        drawLine(x1-(penSize*(gridSize-1)), y2, x2+(penSize*(gridSize-1)), y2, penSize);
-        drawLine(x1, y1-(penSize*(gridSize-1)), x1, y2+(penSize*(gridSize-1)), penSize);
-        drawLine(x2, y1-(penSize*(gridSize-1)), x2, y2+(penSize*(gridSize-1)), penSize);
+        drawLine(x1 - (penSize * 4), y1, x2 + (penSize * 4), y1, penSize);
+        drawLine(x1 - (penSize * 4), y2, x2 + (penSize * 4), y2, penSize);
+        drawLine(x1, y1 - (penSize * 4), x1, y2 + (penSize * 4), penSize);
+        drawLine(x2, y1 - (penSize * 4), x2, y2 + (penSize * 4), penSize);
 
 
     }
@@ -748,7 +1107,6 @@
         }
 
     });
-
     //make sure that all other radios aren't selected 
     var tools = document.querySelectorAll('input[type="radio"]');
     tools.forEach(function (tool) {
@@ -756,10 +1114,17 @@
             tools.forEach(function (t) {
                 if (t !== tool) {
                     t.checked = false;
+                    points = [];
+                    if (t === selectTool) {
+                        redrawGrid();
+                    }
                 }
             });
         });
     });
+
     console.log((![] + [])[+![]])
+
 </script>
+
 </html>
