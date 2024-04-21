@@ -73,7 +73,7 @@
     #canvascont {
 
         /* make responsive */
-        width: 50%;
+        height: 90%;
         aspect-ratio: 4 / 3;
         overflow: hidden;
     }
@@ -530,20 +530,29 @@
         if (zoom < .2) {
             zoom = .2;
         }
-       zoomInOut(e);
+        zoomInOut(e);
 
     });
-    function zoomInOut(e){
+    function zoomInOut(e) {
         var rect = canvas.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
+        var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+        // Set transform origin to center of canvas
+        canvas.style.transformOrigin = `${centerX}px ${centerY}px`;
+        // Change zoom level
+        if (e.deltaY < 0) {
+            zoom *= 1.1;
+        } else {
+            zoom /= 1.1;
+        }
+        if (zoom < .2) {
+            zoom = .2;
+        }
+        //make sure offset is correct
+        canvas.offsetLeft = rect.left /2;
+        canvas.offsetTop = rect.top /2;
 
-        // Convert to percentage
-        var xPct = (x / rect.width) * 100;
-        var yPct = (y / rect.height) * 100;
-        //get pixel mouse is over
-        //translate the canvas so that the mouse is always over the same pixel
-        canvas.style.transformOrigin = '50% 50%';
+
         canvas.style.transform = 'scale(' + zoom + ')';
         zoomInput.value = zoom;
     }
