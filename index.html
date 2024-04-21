@@ -142,6 +142,7 @@
 		#canvascont{
             margin-left: auto;
 			margin-right: auto;
+            width: 100%;
         }
         #tools{
             display: block;
@@ -474,6 +475,7 @@
     //split canvas into a grid and only allow drawing in the grid
     //mobile convert touch to mouse events
     canvas.addEventListener('touchstart', function (e) {
+        e.preventDefault();
         var touch = e.touches[0];
         var mouseEvent = new MouseEvent('mousedown', {
             clientX: touch.clientX,
@@ -482,10 +484,34 @@
         canvas.dispatchEvent(mouseEvent);
     });
     canvas.addEventListener('touchend', function (e) {
+        e.preventDefault();
         var mouseEvent = new MouseEvent('mouseup', {});
         canvas.dispatchEvent(mouseEvent);
     });
+    var lastDistance = 0;
     canvas.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+        if(e.touches.length > 1){
+            var touch1 = e.touches[0];
+            var touch2 = e.touches[1];
+            var distance = Math.sqrt(Math.pow(touch1.clientX - touch2.clientX, 2) + Math.pow(touch1.clientY - touch2.clientY, 2));
+            if (lastDistance === 0) {
+                lastDistance = distance;
+            }
+            if (distance > lastDistance) {
+                zoom *= 1.1;
+            } else {
+                zoom /= 1.1;
+            }
+            if (zoom < .2) {
+                zoom = .2;
+            }
+            canvas.style.transformOrigin = '50% 50%';
+            canvas.style.transform = 'scale(' + zoom + ')';
+            zoomInput.value = zoom;
+            lastDistance = distance;
+            return;
+        }
         var touch = e.touches[0];
         var mouseEvent = new MouseEvent('mousemove', {
             clientX: touch.clientX,
@@ -493,6 +519,7 @@
         });
         canvas.dispatchEvent(mouseEvent);
     });
+
     //zoom in and out of the canvas with the mouse wheel
     canvas.addEventListener('wheel', function (e) {
         e.preventDefault();
