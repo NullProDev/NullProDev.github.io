@@ -14,31 +14,29 @@
         </div>
         <div id="tools">
             <button id="clear">Clear</button>
+            <button id="export">Export</button>
+            <button id="undo">Undo</button>
+            <button id="redo">Redo</button>
             <div id="toolbar">
                 <!--pen, eraser and fill tool-->
-                <input type="radio" id="pen" name="tool"> Pen <br>
-                <input type="radio" id="eraser" name="tool"> Eraser <br>
-                <input type="radio" id="fill" name="tool"> Fill <br>
-                <input type="radio" id="line" name="tool"> Line <br>
-                <input type="radio" id="eyedropper" name=""> Eye Dropper <br>
-                <input type="radio" id="circle" name=""> Circle <br>
-                <input type="radio" id="rect" name=""> Rectangle <br>
-                <input type="radio" id="select" name="">
-                <p id="select">Select</p> <br>
-                <input type="range" id="zoom" value="1" max="5" mix="1" step=".1" name=""> Zoom <br>
-                <button id="export">Export</button>
+                <div><input type="radio" id="pen" name="tool"> Pen</div>
+
+                <div><input type="radio" id="eraser" name="tool"> Eraser</div>
+                <div><input type="radio" id="fill" name="tool"> Fill</div>
+                <div><input type="radio" id="line" name="tool"> Line</div>
+                <div><input type="radio" id="circle" name="tool"> Circle</div>
+                <div><input type="radio" id="rect" name="tool"> Rectangle</div>
+                <div><input type="radio" id="eyedropper" name="tool"> Eyedropper</div>
+                <input type="radio" id="select" name="tool">
             </div>
-            <div class="sbs">
-                <button id="undo">Undo</button>
-                <button id="redo">Redo</button>
-            </div>
+            <div class="sbs"><input type="range" id="zoom" value="1" max="5" mix="1" step=".1" name=""></div>
 
             <div class="sbs">
                 <button id="psminus">-</button>
                 <input id="ps" value="1" />
                 <button id="psplus">+</button>
             </div><br>
-            Pixel Size <input id="grid" type="number" value="2" min="1" />
+            <input id="grid" type="number" value="2" min="1" />
         </div>
     </div>
     <div id="container">
@@ -133,22 +131,59 @@
 
     }
 
+    #toolbar>div {
+        display: flex;
+        align-items: center;
+    }
+    #tools {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     @media only screen and (min-width: 600px) {
         #app {
             display: flex;
             flex-direction: row;
         }
+
+        #toolbar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+    @media only screen and (min-width: 1000px){
+        /* make container side by side */
+        #container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            
+        }
     }
 
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 600px) {
         #canvascont {
             width: 100%;
         }
-
+        #toolbar {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
         #tools {
-            display: block;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        #toolbar>div {
+            flex-direction: row;
         }
     }
+
 
     canvas {
         border: 1px solid black;
@@ -157,14 +192,6 @@
         background-position: 0 0, 10px 10px;
     }
 
-    @media only screen and (min-width: 992px) {
-        #container {
-            margin-top: 20px;
-            display: flex;
-            vertical-align: middle;
-            align-items: top;
-        }
-    }
 
     #wheel {
         height: 50px;
@@ -536,7 +563,7 @@
     function zoomInOut(e) {
         var rect = canvas.getBoundingClientRect();
         var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
+        var centerY = canvas.height / 2;
         // Set transform origin to center of canvas
         canvas.style.transformOrigin = `${centerX}px ${centerY}px`;
         // Change zoom level
@@ -549,8 +576,8 @@
             zoom = .2;
         }
         //make sure offset is correct
-        canvas.offsetLeft = rect.left /2;
-        canvas.offsetTop = rect.top /2;
+        canvas.offsetLeft = rect.left / 2;
+        canvas.offsetTop = rect.top / 2;
 
 
         canvas.style.transform = 'scale(' + zoom + ')';
