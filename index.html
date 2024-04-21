@@ -472,28 +472,24 @@
     //split canvas into a grid and only allow drawing in the grid
     //mobile convert touch to mouse events
     canvas.addEventListener('touchstart', function (e) {
-        pushToHistory(grid.map(row => [...row]));
-        startPoint = { x: e.offsetX, y: e.offsetY };
-        if (line.checked || circle.checked || rect.checked) {
-            startingGrid = grid.map(row => [...row]);
-        }
-        mouseDown = true;
-        if (!line.checked) {
-            draw(e);
-        }
-    });
-    canvas.addEventListener('touchmove', function (e) {
-        e.preventDefault();
-        draw(e);
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent('mousedown', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
     });
     canvas.addEventListener('touchend', function (e) {
-        if (line.checked && startPoint) {
-            endPoint = { x: e.offsetX, y: e.offsetY };
-            pushToHistory(grid.map(row => [...row]));
-        }
-        startPoint = null;
-        mouseDown = false;
-        lastPoint = null;
+        var mouseEvent = new MouseEvent('mouseup', {});
+        canvas.dispatchEvent(mouseEvent);
+    });
+    canvas.addEventListener('touchmove', function (e) {
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent('mousemove', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
     });
     //zoom in and out of the canvas with the mouse wheel
     canvas.addEventListener('wheel', function (e) {
