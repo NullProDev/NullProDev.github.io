@@ -30,12 +30,14 @@
                 <div><input type="radio" id="eyedropper" name="tool"> Eyedropper</div>
                 <input type="radio" id="select" name="tool">
             </div>
-            <div class="sbs" style="margin-top: auto; margin-bottom: auto;"><input type="range" id="zoom" value="1" max="5" mix="1" step=".1" name=""></div>
+            <div class="sbs" style="margin-top: auto; margin-bottom: auto;"><input type="range" id="zoom" value="1"
+                    max="5" mix="1" step=".1" name=""></div>
             <div class="sbs">
                 <button id="psminus">-</button>
                 <input id="ps" value="1" />
                 <button id="psplus">+</button>
-                <input id="grid" style="margin-top: auto; margin-bottom: auto; margin-left: 50px;" type="number" value="2" min="1" />
+                <input id="grid" style="margin-top: auto; margin-bottom: auto; margin-left: 50px;" type="number"
+                    value="2" min="1" />
             </div><br>
         </div>
     </div>
@@ -71,9 +73,10 @@
     #canvascont {
 
         /* make responsive */
-        height: 90%;
+        height: 40%;
         aspect-ratio: 4 / 3;
         overflow: hidden;
+        border: 1px solid black;
     }
 
     input[type="radio"] {
@@ -135,6 +138,7 @@
         display: flex;
         align-items: center;
     }
+
     #tools {
         display: flex;
         flex-direction: column;
@@ -153,13 +157,15 @@
             align-items: flex-start;
         }
     }
-    @media only screen and (min-width: 1000px){
+
+    @media only screen and (min-width: 1000px) {
+
         /* make container side by side */
         #container {
             display: flex;
             flex-direction: row;
             align-items: flex-start;
-            
+
         }
     }
 
@@ -167,21 +173,25 @@
         #canvascont {
             width: 100%;
         }
+
         #toolbar {
             display: flex;
             flex-direction: row;
             align-items: flex-start;
             flex-wrap: wrap;
         }
+
         #tools {
             display: flex;
             flex-direction: row;
             align-items: flex-start;
             flex-wrap: wrap;
         }
+
         #toolbar>div {
             flex-direction: row;
         }
+
         #zoom {
             display: none;
         }
@@ -193,6 +203,7 @@
         background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc 100%), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc 100%);
         background-size: 20px 20px;
         background-position: 0 0, 10px 10px;
+        transform-origin: 50% 50%;
     }
 
 
@@ -236,7 +247,7 @@
 <script>
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
-
+    var canvascont = document.getElementById('canvascont');
     var width = canvas.width;
     var height = canvas.height;
     var gridSize = 5;
@@ -245,6 +256,18 @@
     var grid = [];
     var zoom = 1;
     var gridInput = document.getElementById('grid');
+    var w = canvascont.offsetWidth;
+    var h = canvascont.offsetHeight;
+    console.log(w, h);
+    canvas.style.transformOrigin = w / 2 + 'px ' + h / 2 + 'px';
+    window.addEventListener('resize', function () {
+        var w = canvascont.offsetWidth;
+        var h = canvascont.offsetHeight;
+        console.log(w, h);
+        canvas.style.transformOrigin = w / 2 + 'px ' + h / 2 + 'px';
+        //canvas.translate = 'translate(' + w / 2 + 'px,' + h / 2 + 'px)';
+    });
+    //on resize window, move the canvas to the center
     gridInput.value = gridSize;
     gridInput.addEventListener('input', function () {
         gridSize = parseInt(gridInput.value);
@@ -264,6 +287,8 @@
     zoomInput.addEventListener('input', function () {
         if (zoomInput.value < .2) {
             zoomInput.value = .2;
+        } else if (zoomInput.value > 5) {
+            zoomInput.value = 5;
         }
         zoom = zoomInput.value;
         canvas.style.transform = 'scale(' + zoom + ')';
@@ -295,6 +320,13 @@
         a.download = 'pixel-art.png';
         a.click();
     });
+
+    document.addEventListener('resize', function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+    });
+
     function colourNameToHex(colour) {
         //if rgb
         if (colour.includes('rgb')) {
@@ -523,6 +555,18 @@
     canvas.addEventListener('touchmove', function (e) {
         e.preventDefault();
         var touch = e.touches[0];
+        if (e.touches.length === 2){
+            var delta = Math.abs(e.touches[0].clientX - e.touches[1].clientX) + Math.abs(e.touches[0].clientY - e.touches[1].clientY);
+            if (lastDistance === 0){
+                lastDistance = delta;
+            }
+            //create a scroll event
+            var event = new WheelEvent('wheel', {
+                deltaY: lastDistance - delta
+            });
+            zoomInOut(event);
+
+        }
         var mouseEvent = new MouseEvent('mousemove', {
             clientX: touch.clientX,
             clientY: touch.clientY
@@ -549,10 +593,14 @@
         var centerX = canvas.width / 2;
         var centerY = canvas.height / 2;
         // Set transform origin to center of canvas
-        canvas.style.transformOrigin = `center center`;
         // Change zoom level
         if (e.deltaY < 0) {
-            zoom *= 1.1;
+            if (zoom < 5) {
+                zoom *= 1.1;
+            } else {
+                zoom = 5;
+                return;
+            }
         } else {
             zoom /= 1.1;
         }
@@ -560,12 +608,10 @@
             zoom = .2;
         }
         //make sure offset is correct
-        canvas.offsetLeft = rect.left / 2;
-        canvas.offsetTop = rect.top / 2;
-
-
+        var offsetX = (centerX - rect.left) / zoom - centerX;
+        var offsetY = (centerY - rect.top) / zoom - centerY;
         canvas.style.transform = 'scale(' + zoom + ')';
-        zoomInput.value = zoom;
+
     }
     //pixel art
     for (var i = 0; i < gridWidth; i++) {
@@ -619,6 +665,11 @@
     var moving = false;
     //mouse move event
     canvas.addEventListener('mousemove', function (e) {
+        if (eyedropper.checked) {
+            canvas.style.cursor = 'crosshair';
+        } else {
+            canvas.style.cursor = 'default';
+        }
         //random color
         if (selectTool.checked) {
             mousePointer(e);
@@ -718,6 +769,7 @@
             pushToHistory(grid.map(row => [...row]));
             fillPixel(e);
         } else if (eyedropper.checked) {
+            canvas.style.cursor = 'crosshair';
             eyedropperTool(e);
         } else if (line.checked && startPoint) {
             endPoint = { x: e.offsetX, y: e.offsetY };
@@ -795,9 +847,9 @@
         var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
         var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
         var overPoint = false;
-        if (points.length === 0) {
+        /*if (points.length === 0) {
             canvas.style.cursor = 'default';
-        }
+        }*/
         for (var i = 0; i < points.length; i++) {
             var dx = mouseX - points[i].x;
             var dy = mouseY - points[i].y;
@@ -814,13 +866,13 @@
                 return;
             }
         }
-        if (!overPoint) {
+        /*if (!overPoint) {
             if (isInsideSelection(e)) {
                 canvas.style.cursor = 'move';
             } else {
                 canvas.style.cursor = 'default';
             }
-        }
+        }*/
 
     }
     function selectT(e) {
@@ -941,6 +993,16 @@
         } else {
             wheel.value = colourNameToHex(color);
         }
+        pen.checked = true;
+        eraser.checked = false;
+        fill.checked = false;
+        line.checked = false;
+        circle.checked = false;
+        rect.checked = false;
+        eyedropper.checked = false;
+        //make activate mouse up event
+        mouseDown = false;
+
     }
     var startPoint = null;
     var endPoint = null;
