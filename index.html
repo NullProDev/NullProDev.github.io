@@ -565,6 +565,8 @@
                 deltaY: lastDistance - delta
             });
             zoomInOut(event);
+            lastDistance = delta;
+            return;
 
         }
         var mouseEvent = new MouseEvent('mousemove', {
