@@ -541,8 +541,8 @@
         e.preventDefault();
         var touch = e.touches[0];
         var mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
+            clientX: touch.clientX - window.scrollX,
+            clientY: touch.clientY - window.scrollY
         });
         canvas.dispatchEvent(mouseEvent);
     });
@@ -555,9 +555,9 @@
     canvas.addEventListener('touchmove', function (e) {
         e.preventDefault();
         var touch = e.touches[0];
-        if (e.touches.length === 2){
+        if (e.touches.length === 2) {
             var delta = Math.abs(e.touches[0].clientX - e.touches[1].clientX) + Math.abs(e.touches[0].clientY - e.touches[1].clientY);
-            if (lastDistance === 0){
+            if (lastDistance === 0) {
                 lastDistance = delta;
             }
             //create a scroll event
@@ -570,8 +570,8 @@
 
         }
         var mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
+            clientX: window.scrollX,
+            clientY: touch.clientY - window.scrollY
         });
         canvas.dispatchEvent(mouseEvent);
     });
