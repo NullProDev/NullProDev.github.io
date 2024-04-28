@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="manifest" href="manifest.json" />
     <title>APixel</title>
+    <link href="fonts/css/fontawesome.css" rel="stylesheet" />
+    <link href="fonts/css/solid.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -14,52 +16,69 @@
             <canvas id="canvas" width="800" height="600"></canvas>
         </div>
         <div id="tools">
-            <button id="clear">Clear</button>
-            <button id="export">Export</button>
-            <button id="undo">Undo</button>
-            <button id="redo">Redo</button>
+            <div id="buttons">
+                <button id="clear" class="fa-solid fa-rotate"></button>
+                <button id="export" class="fa-solid fa-download"></button>
+                <button id="undo" class="fa-solid fa-arrow-rotate-left"></button>
+                <button id="redo" class="fa-solid fa-arrow-rotate-right"></button>
+            </div>
             <div id="toolbar">
                 <!--pen, eraser and fill tool-->
-                <div><input type="radio" id="pen" name="tool"> Pen</div>
+                <div><input type="radio" id="pen" name="tool">
+                    <div class="label fa-solid fa-pen"></div>
+                </div>
+                <div><input type="radio" id="eraser" name="tool">
+                    <div class="label fa-solid fa-eraser"></div>
+                </div>
+                <div><input type="radio" id="fill" name="tool">
+                    <div class="label fa-solid fa-fill-drip"></div>
+                </div>
+                <div><input type="radio" id="line" name="tool">
+                    <div class="label fa-solid fa-lines-leaning"></div>
+                </div>
+                <div><input type="radio" id="circle" name="tool">
+                    <div class="label fa-solid fa-circle"></div>
+                </div>
+                <div><input type="radio" id="rect" name="tool">
+                    <div class="label fa-solid fa-square"></div>
+                </div>
+                <div><input type="radio" id="eyedropper" name="tool">
+                    <div class="label fa-solid fa-eye-dropper"></div>
+                </div>
 
-                <div><input type="radio" id="eraser" name="tool"> Eraser</div>
-                <div><input type="radio" id="fill" name="tool"> Fill</div>
-                <div><input type="radio" id="line" name="tool"> Line</div>
-                <div><input type="radio" id="circle" name="tool"> Circle</div>
-                <div><input type="radio" id="rect" name="tool"> Rectangle</div>
-                <div><input type="radio" id="eyedropper" name="tool"> Eyedropper</div>
-                <input type="radio" id="select" name="tool">
             </div>
-            <div class="sbs" style="margin-top: auto; margin-bottom: auto;"><input type="range" id="zoom" value="1"
-                    max="5" mix="1" step=".1" name=""></div>
-            <div class="sbs">
-                <button id="psminus">-</button>
-                <input id="ps" value="1" />
-                <button id="psplus">+</button>
-                <input id="grid" style="margin-top: auto; margin-bottom: auto; margin-left: 50px;" type="number"
-                    value="2" min="1" />
-            </div><br>
+            <div>
+                <div class="sbs" style="margin-top: auto; margin-bottom: auto;"><input type="range" id="zoom" value="1"
+                        max="5" mix="1" step=".1" name=""></div>
+                <div class="sbs">
+                    <button id="psminus">-</button>
+                    <input id="ps" value="1" />
+                    <button id="psplus">+</button>
+                    <input id="grid" type="number" value="2" min="1" style="margin-left: 1em;" />
+                </div><br>
+            </div>
         </div>
     </div>
     <div id="container">
         <div id="color-wheel"></div>
         <div id="border">
             <input type="color" id="wheel" />
-            <button id="addpalette" class="">Add to Palette</button>
-            <button id="importP">Import Palette</button>
-            <button id="exportP">Export Palette</button>
+            <button id="addpalette" class="fa-solid fa-plus"></button>
+            <button id="importP" class="fa-solid fa-file-export"></button>
+            <button id="exportP" class="fa-solid fa-file-import"></button>
         </div>
     </div>
 </body>
 <style>
-    #select {
-        display: none;
+    #psplus,
+    #psminus {
+        border: 0;
     }
 
     #border {
         border: 1px solid black;
         padding: 10px;
-        margin-top: 0px;
+        margin-top: 10px;
         margin-bottom: 0;
         padding: 0 1em 0 1em;
         /* align the buttons at the top */
@@ -68,6 +87,13 @@
         justify-content: center;
         align-items: center;
 
+    }
+
+    #buttons {
+        border-radius: 10%;
+    }
+    button:hover {
+        cursor: pointer;
     }
 
     #canvascont {
@@ -84,27 +110,46 @@
         -moz-appearance: none;
         appearance: none;
         border: 1px solid black;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: 10%;
         display: inline-block;
         position: relative;
         cursor: pointer;
         margin: 5px 10px;
         vertical-align: middle;
+        font-family: 'FontAwesome';
+        font-size: 40px;
+        line-height: 20px;
+        text-align: center;
+        color: 'black';
     }
 
+    /* select label for radio button */
+
+
     input[type="radio"]:checked::before {
-        content: '';
-        display: block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        color: white;
+        display: inline-block;
+        font-size: 20px;
+        line-height: 20px;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 10%;
         background-color: black;
+
+
+    }
+
+    .label {
+        position: relative;
+        left: -2em;
+        font-size: 20px;
+        text-align: left;
+        /* dont allow clicks on the label */
+        pointer-events: none;
+
     }
 
     .sbs {
@@ -126,17 +171,24 @@
     button {
         border: 0;
         background-color: inherit;
-        padding: 15px 25px;
+        padding: 10px 10px;
+        margin: 5px 5px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
+        border: 1px solid black;
+        border-radius: 10%;
 
     }
 
     #toolbar>div {
         display: flex;
         align-items: center;
+        /* center the radio button and label */
+        justify-content: center;
+
+
     }
 
     #tools {
@@ -151,10 +203,10 @@
             flex-direction: row;
         }
 
-        #toolbar {
+        #buttons {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            margin-left: 5px;
         }
     }
 
@@ -167,6 +219,7 @@
             align-items: flex-start;
 
         }
+
     }
 
     @media only screen and (max-width: 600px) {
@@ -177,8 +230,18 @@
         #toolbar {
             display: flex;
             flex-direction: row;
-            align-items: flex-start;
+            align-items: space-between;
             flex-wrap: wrap;
+            justify-content: left;
+        }
+
+        #buttons {
+            display: flex;
+            width: min-content;
+            display: flex;
+            flex-direction: row;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #tools {
@@ -186,15 +249,15 @@
             flex-direction: row;
             align-items: flex-start;
             flex-wrap: wrap;
+
+
         }
 
         #toolbar>div {
             flex-direction: row;
+            margin: 2px;
         }
 
-        #zoom {
-            display: none;
-        }
     }
 
 
@@ -210,38 +273,16 @@
     #wheel {
         height: 50px;
         width: 50px;
-        margin-top: 7px;
+        margin-top: 1px;
+        margin-bottom: 1px;
         border: 0;
         aspect-ratio: 1 / 1;
+
     }
 
     #clear {
-        height: 50px;
-        width: 100px;
-        font-size: 20px;
-        border: 0;
         background-color: black;
         color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-    }
-
-    #eyedropper {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        border: 1px solid black;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: inline-block;
-        position: relative;
-        cursor: pointer;
-        margin: 5px 10px;
-        vertical-align: middle;
     }
 </style>
 <script>
@@ -587,6 +628,7 @@
         if (zoom < .2) {
             zoom = .2;
         }
+        zoomInput.value = zoom;
         zoomInOut(e);
 
     });
@@ -624,7 +666,6 @@
         }
     }
 
-    var selectTool = document.getElementById('select');
 
     //draw on grid
     var mouseDown = false;
@@ -673,11 +714,11 @@
             canvas.style.cursor = 'default';
         }
         //random color
-        if (selectTool.checked) {
+        /*if (selectTool.checked) {
             mousePointer(e);
             selectT(e);
             console.log("m", moving, "r", resizing)
-        }
+        }*/
         if (mouseDown) {
             if (resizing) {
                 resizeSelection(e);
@@ -1240,20 +1281,45 @@
 
     });
     //make sure that all other radios aren't selected 
+    //if any radio is selected, set their label color to white
+    var labels = document.querySelectorAll('label');
+    //get the label for each radio
+
     var tools = document.querySelectorAll('input[type="radio"]');
     tools.forEach(function (tool) {
         tool.addEventListener('click', function () {
             tools.forEach(function (t) {
                 if (t !== tool) {
                     t.checked = false;
-                    points = [];
-                    if (t === selectTool) {
-                        redrawGrid();
+                    try {
+                        t.nextElementSibling.style.color = 'black';
+                        t.style.backgroundColor = 'white';
+                    } catch (e) {
+                        t.parentElement.style.color = 'black';
+
                     }
+                    points = [];
+                    /*if (t === selectTool) {
+                        redrawGrid();
+                    }*/
                 }
             });
+            try {
+                tool.nextElementSibling.style.color = 'white';
+                tool.style.backgroundColor = 'black';
+            } catch (e) {
+                console.log(tool.parentElement);
+
+            }
+
         });
+        //if the radio is selected, set the label color to white
+        if (tool.checked) {
+            tool.nextElementSibling.style.color = 'white';
+            tool.style.backgroundColor = 'black';
+        }
     });
+
 
     console.log((![] + [])[+![]])
 
