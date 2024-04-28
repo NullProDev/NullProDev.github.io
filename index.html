@@ -611,7 +611,7 @@
 
         }
         var mouseEvent = new MouseEvent('mousemove', {
-            clientX: window.scrollX,
+            clientX: touch.clientX - window.scrollX,
             clientY: touch.clientY - window.scrollY
         });
         canvas.dispatchEvent(mouseEvent);
