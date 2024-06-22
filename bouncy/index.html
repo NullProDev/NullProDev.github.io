@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="controls">
+        Air Resistance: <input type="range" min=".5" max="1" value="1" id="airRes" step=".01"><br>
+        Friction: <input type="range" min=".5" max="1" value="1" id="friction" step=".01"></div>
+    <div class="circle"></div>
+    <canvas id="pathtrace"></canvas>
+</body>
+<style>
+    #controls {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background: white;
+        padding: 10px;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: relative;
+        top: 0;
+        left: 0;
+        /* background red with shadow shader */
+        background: radial-gradient(circle, white, black);
+
+    }
+
+    #pathtrace {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+</style>
+<script>
+    const circle = document.getElementsByClassName('circle')[0];
+    var velocityY = 0;
+    var velocityX = 10;
+    var x = circle.offsetLeft;
+    var y = circle.offsetTop;
+    var interval = .1;
+    var gravity = .5;
+    var mousePos = [0, 0];
+    var lastMousePos = [0, 0];
+    var mouseVelocity = [0, 0];
+    var drag = false;
+    var airResistance = .9999 //0.99;
+    var friction = .9 //0.8;
+    setInterval(() => {
+        airResistance = document.getElementById('airRes').value;
+        friction = document.getElementById('friction').value;
+    }, 1000 / 60);
+    setInterval(() => {
+        if (drag) {
+            velocityY = 0;
+            velocityX = 0;
+        }
+        mousePos = [mousePos[0], mousePos[1]];
+        mouseVelocity = [mousePos[0] - lastMousePos[0], mousePos[1] - lastMousePos[1]];
+        console.log(mouseVelocity[0], mouseVelocity[1]);
+        //x += velocity;
+        y += velocityY;
+        x += velocityX;
+        velocityX *= airResistance;
+        circle.style.left = x + 'px';
+        circle.style.top = y + 'px';
+        velocityY += gravity;
+        if (y >= window.innerHeight - circle.offsetHeight || y <= 0) {
+            velocityY = -velocityY * friction;
+            if (y >= window.innerHeight - circle.offsetHeight) {
+                y = (window.innerHeight - circle.offsetHeight) - 1;
+            }
+            if (y <= 0) {
+                y = 1;
+            }
+        }
+        if (x >= window.innerWidth - circle.offsetWidth || x <= 0) {
+            velocityX = -velocityX * friction;
+            if (x >= window.innerWidth - circle.offsetWidth) {
+                x = (window.innerWidth - circle.offsetWidth) - 1;
+            }
+            if (x <= 0) {
+                x = 1;
+            }
+        }
+        lastMousePos = [mousePos[0], mousePos[1]];
+    })
+    document.addEventListener('mousedown', (e) => {
+        //if inside circle
+        if (e.clientX > circle.offsetLeft && e.clientX < circle.offsetLeft + circle.offsetWidth && e.clientY > circle.offsetTop && e.clientY < circle.offsetTop + circle.offsetHeight) {
+            drag = true;
+        }
+    })
+    document.addEventListener('mousemove', (e) => {
+        mousePos = [e.clientX, e.clientY];
+        if (drag) {
+            x = e.clientX - circle.offsetWidth / 2;
+            y = e.clientY - circle.offsetHeight / 2;
+        }
+    })
+    document.addEventListener('mouseup', (e) => {
+        if (drag) {
+            //set velocity to mouse velocity
+            velocityX = mouseVelocity[0];
+            velocityY = mouseVelocity[1];
+        }
+        drag = false;
+    })
+    var canvas = document.getElementById('pathtrace');
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var path = [];
+    var pathLength = 150;
+    var pathIndex = 0;
+    setInterval(() => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        path.push([x, y]);
+        if (path.length > pathLength) {
+            path.shift();
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        //change the line with based on the velocity
+        if (drag) {
+            ctx.lineWidth = 5;
+        } else {
+            ctx.lineWidth = Math.min(30, Math.abs(velocityX) + Math.abs(velocityY));
+        }
+        ctx.moveTo(path[0][0] + circle.offsetWidth / 2, path[0][1] + circle.offsetHeight / 2);
+        for (var i = 1; i < path.length; i++) {
+            ctx.lineTo(path[i][0] + circle.offsetWidth / 2, path[i][1] + circle.offsetHeight / 2);
+        }
+        ctx.stroke();
+    }, 1000 / 60);
+</script>
+
+</html>
