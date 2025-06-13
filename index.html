@@ -1440,11 +1440,36 @@
             elem.appendChild(yearDiv);
         }
     }
+	//add mobile hover effect
+	elem.addEventListener('touchstart', function (e) {
+		let target = e.target;
+		if (target.classList.contains('point')) {
+			let tooltip = target.querySelector('.tooltip');
+			if (tooltip) {
+				tooltip.style.display = 'block';
+				target.style.zIndex = '1000'; // Bring to front
+				target.style.backgroundColor = 'lightblue'; // Change background color on hover
+				target.style.padding = '0.5rem'; // Add padding for better visibility
+			}
+		}
+	});
 
+	elem.addEventListener('touchend', function (e) {
+		let target = e.target;
+		if (target.classList.contains('point')) {
+			let tooltip = target.querySelector('.tooltip');
+			if (tooltip) {
+				tooltip.style.display = 'none';
+				target.style.zIndex = '1'; // Reset z-index
+				target.style.backgroundColor = ''; // Reset background color
+			}
+		}
+	});
 </script>
 <style>
     #pan {
         width: 100vw;
+		min-width: 1200px;
         height: 700vh;
         background-color: white;
         cursor: grab;
