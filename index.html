@@ -3,1363 +3,1451 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="manifest" href="manifest.json" />
-    <title>APixel</title>
-    <link href="./fonts/css/fontawesome.css" rel="stylesheet" />
-    <link href="./fonts/css/solid.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US History Timeline</title>
+    <script src="https://unpkg.com/@panzoom/panzoom@4.6.0/dist/panzoom.min.js"></script>
+    <script>
+        let timeline = {
+	"timeline": {
+		"version": "2.10.0 (ca113dc0bf60 2025-02-09)",
+		"timetype": "gregoriantime",
+		"categories": "",
+		"events": {
+			"event": [
+				{
+					"start": "1944-01-01 00:00:00",
+					"end": "1991-01-01 00:00:00",
+					"text": "Cold War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Series of proxy wars and rivarly between the two world superpowers: the US and USSR\n\nPrevented from escalation into direct war through threat of nuclear bombs",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1870-01-01 18:19:00",
+					"end": "1914-02-22 18:19:00",
+					"text": "2nd Industrial Revolution",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1800-01-01 00:00:00",
+					"end": "1840-06-09 00:00:00",
+					"text": "2nd Great Awakening",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Period of religious revolution characterized by the believe in self-determination\n\nfueled the the abolitionist and feminist movements",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "2001-01-01 00:00:00",
+					"end": "2021-01-01 00:00:00",
+					"text": "US Afghan War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Part of the war on terror\nWar to depose Taliban and eliminate Al-Qaeda, succeeded until US pulled out in 2021 and Taliban retook the country",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1840-06-09 00:00:00",
+					"end": "1860-06-09 00:00:00",
+					"text": "1st Industrial Revolution",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1920-01-01 00:00:00",
+					"end": "1930-01-01 00:00:00",
+					"text": "Roaring 20s",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Jazz age\nSilent Films\nFlappers\nProhibition",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1754-01-01 15:23:00",
+					"end": "1763-01-01 15:23:00",
+					"text": "French and Indian War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Resulted in massive gain of territory for the thirteen colonies but put Great Britain in a large amount of debt which they would seek to have the colonies help repay",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1775-01-01 00:00:00",
+					"end": "1783-01-01 00:00:00",
+					"text": "Revolutionary War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1861-01-01 00:00:00",
+					"end": "1865-01-01 00:00:00",
+					"text": "Civil War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "civil war between north and southern states over the issue of slavery",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1791-01-01 00:00:00",
+					"end": "1794-01-01 00:00:00",
+					"text": "Whiskey Rebellion",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "violent tax protest \nput down by George Washington\ndisplayed power of new constitution",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1949-01-01 00:00:00",
+					"end": "1949-01-01 00:00:00",
+					"text": "CCP victory in Chinese civil war",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "The communist CCP won the Chinese civill war, causing the nationalist government to flee to Hong Kong",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1941-01-01 00:00:00",
+					"end": "1945-01-01 00:00:00",
+					"text": "US involvement in WWII",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1933-01-01 00:00:00",
+					"end": "1936-01-01 00:00:00",
+					"text": "New Deal",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "FDR's economic recover plan\n\nthrew legislation at wall, started to bring GD to end. GD finally really ended due to WW2",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1798-01-01 00:00:00",
+					"end": "1800-01-01 00:00:00",
+					"text": "Quasi War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Naval and trade conflict between France and US during French revolution\nUS avoided escalating",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1788-01-01 00:00:00",
+					"end": "1788-01-01 00:00:00",
+					"text": "Ratification of Constitution",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Ended use of the terrible Articles of Confederation which gave the federal government no power",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1706-06-09 00:00:00",
+					"end": "1706-06-09 00:00:00",
+					"text": "Shift from indentured servitude to slavery in the south",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1917-01-01 00:00:00",
+					"end": "1917-01-01 00:00:00",
+					"text": "US joins WWII",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "due to unrestricted sub warfare and Zimmerman telegram",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1919-01-01 00:00:00",
+					"end": "1919-01-01 00:00:00",
+					"text": "Women's Sufferage",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1912-01-01 00:00:00",
+					"end": "1912-01-01 00:00:00",
+					"text": "Sufferagettes",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Led by Alice Paul, a very radical militant women's right advocacy group that led parades through major cities and were arrested during nonviolent picket protest at DC.",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1915-01-01 00:00:00",
+					"end": "1915-01-01 00:00:00",
+					"text": "Occupation of Haiti & DR",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1865-01-01 00:00:00",
+					"end": "1865-01-01 00:00:00",
+					"text": "Lincoln killed",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1764-01-01 00:00:00",
+					"end": "1764-01-01 00:00:00",
+					"text": "Sugar Act, Stamp Act and Townshed Acts",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Created new taxes that enraged the colonists who believed they shouldn't be taxed without representation",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1797-01-01 00:00:00",
+					"end": "1797-01-01 00:00:00",
+					"text": "XYZ affair",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "a diplomatic incident between French and United States diplomats that resulted the Quasi-War",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1607-01-01 00:00:00",
+					"end": "1607-01-01 00:00:00",
+					"text": "Founding of the 13 Colonies",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1869-01-01 19:40:00",
+					"end": "1869-01-01 19:40:00",
+					"text": "Knights of Labor",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "first labor movement\none of the first unions in the US\ngrew to over 500k members",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1945-01-01 00:00:00",
+					"end": "1945-01-01 00:00:00",
+					"text": "First nuclear test",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1937-01-01 00:00:00",
+					"end": "1937-01-01 00:00:00",
+					"text": "Court Packing plan",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "FDR plan to replace old justices with ones more sympathetic ones",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1991-01-02 05:58:00",
+					"end": "1991-01-02 05:58:00",
+					"text": "Dissolusion of the Soviet Union",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "end of the USSR and the cold war",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1968-01-01 00:00:00",
+					"end": "1968-01-01 00:00:00",
+					"text": "Tet Offensive",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "all out attack on South Vietnamese lines\npainful for Vietcong, but proved to the US the situation was untennable",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1968-03-16 20:14:00",
+					"end": "1968-03-16 20:14:00",
+					"text": "My Lai Masscre",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "mass killing of as many as 500 unarmed villagers by U.S. soldiers in vietnam",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1857-01-01 00:00:00",
+					"end": "1857-01-01 00:00:00",
+					"text": "Dredd Scott Decision",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Supreme court held the constitution didn't extend citizenship to black people\n\nruled missouri compromise unconstitutional",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1862-01-01 09:34:00",
+					"end": "1862-01-01 09:34:00",
+					"text": "Homestead Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "gave settlers land to settle out west",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1865-01-01 21:32:00",
+					"end": "1865-01-01 21:32:00",
+					"text": "Abolition",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "13th amendment\ntwo years after lincoln executive order Emancipation Proclimation",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1676-01-01 03:44:00",
+					"end": "1676-01-01 03:44:00",
+					"text": "Bacon's Rebellion",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Colonial Virginia\nSpurred on switch from indentured servitude to slavery",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1739-01-01 05:17:00",
+					"end": "1739-01-01 05:17:00",
+					"text": "Stono's Rebellion",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Slave revolt\n200 slaves\nseized armory store",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1970-06-09 00:00:00",
+					"end": "2000-06-09 00:00:00",
+					"text": "Rebirth of Conservatism",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Nixon and Reagan \nnew conservative Republican coolition appealing to the south\nblacklast to counterculture and anti-war movements",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1890-01-01 00:00:00",
+					"end": "1920-01-01 00:00:00",
+					"text": "Progressive Era",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "backlash against monopolies and barons, split up Standard Oil, introduced more 'direct democracy'",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1875-01-01 00:00:00",
+					"end": "1890-01-01 00:00:00",
+					"text": "Gilded Age",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Era of expanded monopolies as well as wealth. Growth in income inequality",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1954-01-01 00:00:00",
+					"end": "1968-01-01 00:00:00",
+					"text": "Civil Rights Movement",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "led by black activists like MLK, movement for civil rights and the end of the Jim Crow era.",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1929-06-09 00:00:00",
+					"end": "1939-06-09 00:00:00",
+					"text": "Great Depression",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Agricultural struggles, then Black Thursday: large stock market crash, and dust bowl\n\nstarted during Hoover president, who became very conservative in dealing w/ crisis. \ncrashed world economy",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "2003-01-01 00:00:00",
+					"end": "2011-01-01 00:00:00",
+					"text": "Iraq War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Part of the war on terror\nWar to depose Suddam Hussein. While technically a success in it's mission, the war decreased confidence in the US",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1854-01-01 00:00:00",
+					"end": "1859-01-01 00:00:00",
+					"text": "Bleeding Kansas",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "period of bloodshed in Kansas and Missouri between abolitionists and pro-slavery factions preforming election fraud\n\nKansas would vote whether to become free or slave state\n\neventually admitted as a Free state",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1812-01-01 00:00:00",
+					"end": "1815-01-01 00:00:00",
+					"text": "War of 1812",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "US vs GB \nAmericans thought they could quickly take Canada, were wrong",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1846-01-01 00:00:00",
+					"end": "1848-01-01 00:00:00",
+					"text": "Mexican American War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1830-01-01 00:00:00",
+					"end": "1830-01-01 00:00:00",
+					"text": "Indian Removal Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Andrew Jackson's legislation that forced Native Americans west of the Mississipi leading to the trail of tears",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1823-01-01 00:00:00",
+					"end": "1823-01-01 00:00:00",
+					"text": "Monroe Doctrine est.",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Said the US wouldn't allow colonization in the Americas\nmostly enforced by the British",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "2001-09-11 08:07:00",
+					"end": "2001-09-11 08:07:00",
+					"text": "September 11th attack",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Plane hijackings that were crashed into the Twin Towers, and the Pentagon, causing the deaths of almost 3000\n\nLed to the war on terror, where the US seeked to eliminate terrorist groups in the middle east",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1883-01-01 00:00:00",
+					"end": "1883-01-01 00:00:00",
+					"text": "Pendleton Civil Service Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "merrit based federal employee system",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1890-01-01 00:00:00",
+					"end": "1890-01-01 00:00:00",
+					"text": "NAWSA",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "National American Woman Suffrage Association\n\nA moderate advocacy group for women's rights",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1896-01-01 00:00:00",
+					"end": "1896-01-01 00:00:00",
+					"text": "Plessy v. Ferguson",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "supreme court upheld Jim Crow separate but equal doctrine",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1890-01-01 10:26:00",
+					"end": "1890-01-01 10:26:00",
+					"text": "Sherman Antitrust Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1882-01-01 00:00:00",
+					"end": "1882-01-01 00:00:00",
+					"text": "Chinese Exclusion Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Blocked Chinese immigrants from entering the country. General restrictive immigration policy at this time",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1887-01-01 22:37:00",
+					"end": "1887-01-01 22:37:00",
+					"text": "Dawes Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "effort to integrate American Indians into the mainstream",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1848-01-01 00:00:00",
+					"end": "1848-01-01 00:00:00",
+					"text": "Wilmot Proviso",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "failed attempt to ban slavery",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1974-01-01 00:00:00",
+					"end": "1974-01-01 00:00:00",
+					"text": "Watergate",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Nixon scandal, spying on democrats\nrevealed pattern of abuses of power in the federal goverment. \nFBI and CIA abuses like MK ultra",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1969-01-01 00:00:00",
+					"end": "1969-01-01 00:00:00",
+					"text": "Apollo 11 lands on moon",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "end of space race, US victory",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1949-01-01 00:00:00",
+					"end": "1949-01-01 00:00:00",
+					"text": "USSR nuclear test",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1815-01-01 00:00:00",
+					"end": "1815-01-01 00:00:00",
+					"text": "Battle of New Orleans",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "grand victory over a bigger british force by Andrew Jackson, unfortunately after the signing of peace terms",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1820-01-01 00:00:00",
+					"end": "1820-01-01 00:00:00",
+					"text": "Missouri Compromise",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "admitted Maine as a free state simultaneously with Missouri as a slave state\n\npreserved balance of power",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1776-07-04 00:00:00",
+					"end": "1776-07-04 00:00:00",
+					"text": "Decl. of Independence",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1803-01-01 00:00:00",
+					"end": "1803-01-01 00:00:00",
+					"text": "Marbury vs Madison",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Gave the Supreme Court the power to rule legislation unconstitutional\n\naka Judicial Review",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1803-01-01 00:00:00",
+					"end": "1803-01-01 00:00:00",
+					"text": "Louisiana Purchase",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1816-01-01 00:00:00",
+					"end": "1816-01-01 00:00:00",
+					"text": "End of Federalist party",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1848-01-01 00:00:00",
+					"end": "1848-01-01 00:00:00",
+					"text": "Seneca Falls Convention",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "first women's rights convention",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1854-06-09 00:00:00",
+					"end": "1854-06-09 00:00:00",
+					"text": "GOP founded",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Republican party formed as an abolitionist party",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1850-01-01 00:00:00",
+					"end": "1850-01-01 00:00:00",
+					"text": "Compromise of 1850",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "diffused tensions w/ a package of compromises",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1947-01-01 19:53:00",
+					"end": "1947-01-01 19:53:00",
+					"text": "Est. Iron Curtain",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "USSR puppet states in Eastern Europe w/ the aim of protecting the country from Western Europe",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1948-01-01 00:00:00",
+					"end": "1948-01-01 00:00:00",
+					"text": "Berlin Airlift",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "air support of West Berlin, which was split in two between USSR and allied occupation zones, but being in the East, the USSR cut off Berlin from supplies as part of the cold war to try to force the US to hand the half of the city to them\n\nUS organized massive logistical resources and flew enough supplies to Berlin to support the city\n\nMassive show of American power and forced the Soviets to back down",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1955-01-01 00:00:00",
+					"end": "1975-01-01 00:00:00",
+					"text": "Vietnam War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Proxy war between US and USSR through South Vietnamese and North Vietnamese\n\nUS believed not supporting SV would make them seem weak\nEven before start believed possibly untennable\nLong and drawn out, eventually US loss",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1880-01-01 00:00:00",
+					"end": "1897-01-01 00:00:00",
+					"text": "Populist Movement",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "movement of farmers and agrarian workers who sought to address economic hardships and power of big businesses\n\n policies like direct election of senators, government regulation of railroads and utilities, and a graduated income tax",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1867-01-01 00:00:00",
+					"end": "1877-01-01 00:00:00",
+					"text": "Radical Reconstruction",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "14th ammendment - citizenship to freed slaves; birthright citizenship\n15th ammendment - voting rights to black males\nFreedmen’s Bureau: Helped freed slaves (schools, courts).\n\nBacklash: Black Codes restricted rights of black Americans in south",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1900-01-01 00:00:00",
+					"end": "1908-01-01 00:00:00",
+					"text": "Square Deal",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Teddy Roosevelt's policy of cracking down on trusts that was the cresendo of the progressive era reforms\nHepburn Act - gave the ICC authority to regulate rates\npro-union, est. Department of Commerce and Labor",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1947-01-01 20:38:00",
+					"end": "1954-01-01 20:38:00",
+					"text": "McCarthyism",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "anti-communist reign of terror\nled by Joe McCarthy leveraging anticommunist fears to destroy political opponents",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1935-01-01 00:00:00",
+					"end": "1935-01-01 00:00:00",
+					"text": "Wagner Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "right to unionize, passed under FRD",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1979-01-01 00:00:00",
+					"end": "1979-01-01 00:00:00",
+					"text": "Soviet Afghan War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Untennable war for Soviets against Afghan fighters that sapped resources from the USSR",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1914-01-01 00:00:00",
+					"end": "1914-01-01 00:00:00",
+					"text": "Panama Canal opens",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1933-01-01 07:53:00",
+					"end": "1933-01-01 07:53:00",
+					"text": "End of Prohibition",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1898-12-30 00:00:00",
+					"end": "1898-12-30 00:00:00",
+					"text": "Spanish-American War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Spanish quickly defeated, Puerto Rico, Guam, and the Philippines ceded to the United States",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1905-02-04 09:17:00",
+					"end": "1905-02-04 09:17:00",
+					"text": "IWW",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "\"Wobblies\"\n\"one big union\" took over from  AFL\nutilized direct action and found success",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1979-01-01 00:00:00",
+					"end": "1979-01-01 00:00:00",
+					"text": "Iran Hostage Crisis",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "diplomats and other citizens held hostage at the U.S. Embassy in Tehran after Iranian students seized it \nweakened Carter administration",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1874-01-01 00:00:00",
+					"end": "1874-01-01 00:00:00",
+					"text": "WCTU",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Women's Temperance Christian Union\nfeminist advocated for prohibition and sufferage",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1877-01-01 22:43:00",
+					"end": "1877-01-01 22:43:00",
+					"text": "Great Railroad Strike",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "nationwide\nFederal troops leading to violence\nCollapsed",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1877-01-01 00:00:00",
+					"end": "1877-01-01 00:00:00",
+					"text": "Fed. Troops leave the south",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1960-01-01 00:00:00",
+					"end": "1975-01-01 00:25:00",
+					"text": "Counterculture and anti-war movements",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "backlash against the unpopular vietnam war combined with the cultural revolution of the counterculture movement to create a New Left \n\nCounterculture inspired by social shake-up of civil rights movement, spread on universities\n\nSexual revoltution and new feminism, hippie culture",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1950-01-01 00:00:00",
+					"end": "1953-01-01 00:00:00",
+					"text": "Korean War",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "proxy war, US victory",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1959-01-01 13:51:00",
+					"end": "1959-01-01 13:51:00",
+					"text": "Cuban Revolution",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "led by communist Fidel Castro, terrified US",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1957-01-01 00:00:00",
+					"end": "1957-01-01 00:00:00",
+					"text": "Start of Space Race",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Soviet launch of Sputnik that would create a race to land on the moon",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1956-01-01 00:00:00",
+					"end": "1956-01-01 00:00:00",
+					"text": "Suez Crisis",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "symbolized 'sunset' on the British Empire \nBritish planned invasion of Egypt w/ Israel after nationalized seized canal\nUS and USSR both denounced, GB had to back down",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1886-01-01 07:28:00",
+					"end": "1886-01-01 07:28:00",
+					"text": "Haymarket Riot",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1886-01-01 14:01:00",
+					"end": "1886-01-01 14:01:00",
+					"text": "AFL",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "American Federation of Labor, big union focusing on skilled work. \nModerates\ndidn't allow black or Chinese workers",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1904-01-01 00:00:00",
+					"end": "1904-01-01 00:00:00",
+					"text": "Corollary to Monroe Doctrine",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Teddy Roosevelt \nUnited States would intervene in cases where Latin American governments prove incapable or unstable",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1961-01-01 00:00:00",
+					"end": "1961-01-01 00:00:00",
+					"text": "Bay of Pigs",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Failed invasion of Castro's Cuba",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1960-01-01 14:55:00",
+					"end": "1970-12-15 14:55:00",
+					"text": "Great Society",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "LBJ reform programs\n\nwar on poverty, establishment of first welfare state\n\nMedicaid, social security \n\nVoting rights act, immigration act, civil rights act",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1972-01-01 01:52:00",
+					"end": "1982-01-01 01:52:00",
+					"text": "Stagflation",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "term for the combination of economic stagnation and inflation experienced by the US especially during the 70s\n\nexasterbated by OPEC and the 1973 oil crisis",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1971-01-01 00:00:00",
+					"end": "1974-01-01 00:00:00",
+					"text": "Vietnamization",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "promoted by Richard Nixon, withdrawing US troops from vietnam in the hopes that the South Vietnamese would take over the fighting",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1962-10-01 00:00:00",
+					"end": "1962-10-01 00:00:00",
+					"text": "Cuban Missile Crisis",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Fidel Castro and USSR put nukes on Cuba\npeak of paranoia and nuclear brinkmanship",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1964-01-01 05:42:00",
+					"end": "1964-01-01 05:42:00",
+					"text": "Gulf of Tonkin Resolution",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "gave president Johnson very broad military power in Vietnam",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1765-01-01 00:00:00",
+					"end": "1765-01-01 00:00:00",
+					"text": "Daughters of Liberty",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Women's movement to protest stamp act & Townshed act\nChallenged gender roles",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1773-01-01 00:00:00",
+					"end": "1773-01-01 00:00:00",
+					"text": "Tea Act",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1770-01-01 19:48:00",
+					"end": "1770-01-01 19:48:00",
+					"text": "Boston Massacre",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "British fired on Bostonian protesters killing two\nPress in the colonies flamed the fires, deeming it a massacre",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1786-01-01 15:25:00",
+					"end": "1786-01-01 15:25:00",
+					"text": "Shay's rebellion",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "exposed the weakness of the Articles of Confederation\nrising against individual state tariffs",
+					"default_color": "192,192,192"
+				},
+				{
+					"start": "1607-01-01 22:17:00",
+					"end": "2021-01-01 22:17:00",
+					"text": "Alien and Sedition Acts",
+					"progress": "0",
+					"fuzzy": "False",
+					"fuzzy_start": "False",
+					"fuzzy_end": "False",
+					"locked": "False",
+					"ends_today": "False",
+					"description": "Authorized president to arrest people and deport them\nIncreases requirements for citizenship → 5 years to 14 years of residence in the US. \nMade it illegal to criticize government → violation of 1st amendment",
+					"default_color": "192,192,192"
+				}
+			]
+		},
+		"view": {
+			"displayed_period": {
+				"start": "1774-07-10 10:06:13",
+				"end": "2086-06-30 16:18:04"
+			},
+			"hidden_categories": ""
+		}
+	}
+};
+    </script>
 </head>
 
 <body>
-    <div id="app">
-        <div id="canvascont">
-            <canvas id="canvas" width="800" height="600"></canvas>
-        </div>
-        <div id="tools">
-            <div id="buttons">
-                <button id="clear" class="fa-solid fa-rotate"></button>
-                <button id="export" class="fa-solid fa-download"></button>
-                <button id="undo" class="fa-solid fa-arrow-rotate-left"></button>
-                <button id="redo" class="fa-solid fa-arrow-rotate-right"></button>
-            </div>
-            <div id="toolbar">
-                <!--pen, eraser and fill tool-->
-                <div><input type="radio" id="pen" name="tool">
-                    <div class="label fa-solid fa-pen"></div>
-                </div>
-                <div><input type="radio" id="eraser" name="tool">
-                    <div class="label fa-solid fa-eraser"></div>
-                </div>
-                <div><input type="radio" id="fill" name="tool">
-                    <div class="label fa-solid fa-fill-drip"></div>
-                </div>
-                <div><input type="radio" id="line" name="tool">
-                    <div class="label fa-solid fa-lines-leaning"></div>
-                </div>
-                <div><input type="radio" id="circle" name="tool">
-                    <div class="label fa-solid fa-circle"></div>
-                </div>
-                <div><input type="radio" id="rect" name="tool">
-                    <div class="label fa-solid fa-square"></div>
-                </div>
-                <div><input type="radio" id="eyedropper" name="tool">
-                    <div class="label fa-solid fa-eye-dropper"></div>
-                </div>
+    <div id="pan">
+        <h1 class="middle"> </h1>
+    </div>
 
-            </div>
-            <div class="exclude">
-                <div class="sbs" style="margin-top: auto; margin-bottom: auto;"><input type="range" id="zoom" value="1"
-                        max="5" mix="1" step=".1" name=""></div>
-                <div class="sbs">
-                    <button id="psminus">-</button>
-                    <input id="ps" value="1" />
-                    <button id="psplus">+</button>
-                    <input id="grid" type="number" value="2" min="1" style="margin-left: 1em;" />
-                </div><br>
-            </div>
-        </div>
-    </div>
-    <div id="container">
-        <div id="color-wheel"></div>
-        <div id="togglewheel" style="display: none; ">
-            <button id="toggle" class="fa-solid fa-palette" style="padding: 15px; margin-top: 15px;"></button>
-        </div>
-        <div id="border">
-            <input type="color" id="wheel" />
-            <button id="addpalette" class="fa-solid fa-plus"></button>
-            <button id="importP" class="fa-solid fa-file-export"></button>
-            <button id="exportP" class="fa-solid fa-file-import"></button>
-        </div>
-    </div>
 </body>
-<style>
-    #psplus,
-    #psminus {
-        border: 0;
-    }
-
-    #border {
-        border: 1px solid black;
-        padding: 10px;
-        margin-top: 10px;
-        margin-bottom: 0;
-        padding: 0 1em 0 1em;
-        /* align the buttons at the top */
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-
-    }
-
-    #buttons {
-        border-radius: 10%;
-    }
-
-    button:hover {
-        cursor: pointer;
-    }
-
-    #canvascont {
-
-        /* make responsive */
-        height: 40%;
-        aspect-ratio: 4 / 3;
-        overflow: hidden;
-        border: 1px solid black;
-    }
-
-    input[type="radio"] {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        border: 1px solid black;
-        width: 40px;
-        height: 40px;
-        border-radius: 10%;
-        display: inline-block;
-        position: relative;
-        cursor: pointer;
-        margin: 5px 10px;
-        vertical-align: middle;
-        font-family: 'FontAwesome';
-        font-size: 40px;
-        line-height: 20px;
-        text-align: center;
-        color: 'black';
-    }
-
-    /* select label for radio button */
-
-
-    input[type="radio"]:checked::before {
-        color: white;
-        display: inline-block;
-        font-size: 20px;
-        line-height: 20px;
-        text-align: center;
-        width: 20px;
-        height: 20px;
-        border-radius: 10%;
-        background-color: black;
-
-
-    }
-
-    .label {
-        position: relative;
-        left: -2em;
-        font-size: 20px;
-        text-align: left;
-        /* dont allow clicks on the label */
-        pointer-events: none;
-
-    }
-
-    .sbs {
-        display: flex;
-        flex-direction: row;
-        vertical-align: middle;
-        align-items: center;
-
-    }
-
-    #ps,
-    #grid {
-        height: 30px;
-        text-align: center;
-        width: 30px;
-        vertical-align: middle;
-    }
-
-    button {
-        border: 0;
-        background-color: inherit;
-        padding: 10px 10px;
-        margin: 5px 5px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        border: 1px solid black;
-        border-radius: 10%;
-        color: #000;
-    }
-
-    #toolbar>div {
-        display: flex;
-        align-items: center;
-        /* center the radio button and label */
-        justify-content: left;
-
-
-    }
-
-    #tools {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    @media only screen and (min-width: 700px) {
-        #app {
-            display: flex;
-            flex-direction: row;
-        }
-
-        #buttons {
-            display: flex;
-            flex-direction: column;
-            margin-left: 5px;
-        }
-    }
-
-    @media only screen and (min-width: 900px) {
-
-        /* make container side by side */
-        #container {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-
-        }
-
-    }
-
-    @media only screen and (max-width: 700px) {
-        #canvascont {
-            width: 100%;
-        }
-
-        #toolbar {
-            display: flex;
-            flex-direction: row;
-            align-items: left;
-            flex-wrap: wrap;
-            justify-content: left;
-            /* make spacing between the tools */
-
-        }
-
-        #buttons {
-            display: flex;
-            width: min-content;
-            display: flex;
-            flex-direction: row;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #tools {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            flex-wrap: wrap;
-
-
-        }
-
-        #toolbar>div {
-            display: flex;
-            align-items: center;
-            /* center the radio button and label */
-            justify-content: left;
-            flex-wrap: wrap;
-            margin: 5px -10px;
-            /* make spacing between the tools */
-            width: fit-content;
-            
-        }
-        
-        #container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-    }
-
-
-    canvas {
-        border: 1px solid black;
-        background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc 100%), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc 100%);
-        background-size: 20px 20px;
-        background-position: 0 0, 10px 10px;
-        transform-origin: 50% 50%;
-    }
-
-
-    #wheel {
-        height: 50px;
-        width: 50px;
-        margin-top: 1px;
-        margin-bottom: 1px;
-        border: 0;
-        aspect-ratio: 1 / 1;
-
-    }
-
-    #clear {
-        background-color: black;
-        color: white;
-    }
-</style>
-<script>
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    var canvascont = document.getElementById('canvascont');
-    var width = canvas.width;
-    var height = canvas.height;
-    var gridSize = 5;
-    var gridWidth = width / gridSize;
-    var gridHeight = height / gridSize;
-    var grid = [];
-    var zoom = 1;
-    var gridInput = document.getElementById('grid');
-    var w = canvascont.offsetWidth;
-    var h = canvascont.offsetHeight;
-    var colorWheel = document.getElementById('color-wheel');
-    console.log(w, h);
-    //if content is showing 
-    if (window.innerHeight > document.body.clientHeight * 1.3) {
-        document.body.style.overflow = 'hidden';
-    }
-    canvas.style.transformOrigin = w / 2 + 'px ' + h / 2 + 'px';
-    //if the width is less than 700px show toggle button
-    var togglewheel = document.getElementById('togglewheel');
-    if (window.innerWidth < 700) {
-        togglewheel.style.display = 'block';
-        colorWheel.style.display = 'none';
-    }else{
-        togglewheel.style.display = 'none';
-        colorWheel.style.display = 'block';
-    }
-    togglewheel.addEventListener('click', function () {
-        if (colorWheel.style.display === 'none') {
-            colorWheel.style.display = 'block';
-            colorWheel.style.position = 'absolute';
-            colorWheel.style.top = '0';
-        } else {
-            colorWheel.style.display = 'none';
-            colorWheel.style.position = 'relative';
-
-        }
-    });
-    window.addEventListener('resize', function () {
-        var w = canvascont.offsetWidth;
-        var h = canvascont.offsetHeight;
-        console.log(w, h);
-        canvas.style.transformOrigin = w / 2 + 'px ' + h / 2 + 'px';
-        //canvas.translate = 'translate(' + w / 2 + 'px,' + h / 2 + 'px)';
-        if (window.innerWidth < 600) {
-            togglewheel.style.display = 'block';
-            colorWheel.style.display = 'none';
-        }else{
-            togglewheel.style.display = 'none';
-            colorWheel.style.display = 'block';
-        }
-        colorWheel.style.position = 'relative';
-    });
-
-    //on resize window, move the canvas to the center
-    gridInput.value = gridSize;
-    gridInput.addEventListener('input', function () {
-        gridSize = parseInt(gridInput.value);
-        gridWidth = width / gridSize;
-        gridHeight = height / gridSize;
-        grid = [];
-        for (var i = 0; i < gridWidth; i++) {
-            grid[i] = [];
-            for (var j = 0; j < gridHeight; j++) {
-                grid[i][j] = '';
-            }
-        }
-        points = [];
-        redrawGrid();
-    });
-    var zoomInput = document.getElementById('zoom');
-    zoomInput.addEventListener('input', function () {
-        if (zoomInput.value < .2) {
-            zoomInput.value = .2;
-        } else if (zoomInput.value > 5) {
-            zoomInput.value = 5;
-        }
-        zoom = zoomInput.value;
-        canvas.style.transform = 'scale(' + zoom + ')';
-    });
-    //export
-    var exportButton = document.getElementById('export');
-    exportButton.addEventListener('click', function () {
-        //confirm
-        var r = confirm('Are you sure you want to export?');
-        if (!r) {
-            return;
-        }
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL();
-        a.download = 'pixel-art.png';
-        a.click();
-    });
-
-    document.addEventListener('resize', function () {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-    });
-
-    function colourNameToHex(colour) {
-        //if rgb
-        if (colour.includes('rgb')) {
-            var rgb = colour.match(/\d+/g);
-            return "#" + ((1 << 24) + (parseInt(rgb[0]) << 16) + (parseInt(rgb[1]) << 8) + parseInt(rgb[2])).toString(16).slice(1);
-        }
-        var allColors = {
-            "black": "#000000", "blue": "#0000ff", "brown": "#a52a2a", "cyan": "#00ffff", "gold": "#ffd700", "gray": "#808080", "green": "#008000", "indigo": "#4b0082", "magenta": "#ff00ff", "orange": "#ffa500", "pink": "#ffc0cb", "purple": "#800080", "red": "#ff0000", "violet": "#ee82ee", "white": "#ffffff", "yellow": "#ffff00"
-        };
-        if (typeof allColors[colour.toLowerCase()] != 'undefined') {
-            return allColors[colour.toLowerCase()];
-        }
-        return false;
-    }
-    //+- pen size
-    document.addEventListener('load', function () {
-        penSize = 0;
-        pen.checked = true;
-        eraser.checked = false;
-        rect.checked = false;
-        circle.checked = false;
-        line.checked = false;
-        fill.checked = false;
-        eyedropper.checked = false;
-
-    });
-
-    var addPensize = document.getElementById('psplus');
-    var subtractMinus = document.getElementById('psminus');
-    var penSi = document.getElementById('ps');
-    penSi.addEventListener('load', function () {
-        penSi.value = 1;
-        penSize = 0;
-    });
-    penSi.addEventListener('input', function () {
-        penSize = parseInt(penSi.value) - 1;
-    });
-    addPensize.addEventListener('click', function () {
-        penSize++;
-        updatePenSize();
-    });
-    subtractMinus.addEventListener('click', function () {
-        if (penSize > 0) {
-            penSize--;
-        }
-        updatePenSize();
-    });
-
-    //undo and redo with ctrl z and ctrl shift z
-    var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white'];
-    var addPalette = document.getElementById('addpalette');
-    addPalette.addEventListener('click', function () {
-        colors.push(wheel.value);
-        var div = document.createElement('div');
-        div.style.width = '50px';
-        div.style.height = '50px';
-        div.style.backgroundColor = wheel.value;
-        div.style.display = 'inline-block';
-        div.style.margin = '10px';
-        div.style.border = '1px solid black';
-        div.onclick = function () {
-            color = this.style.backgroundColor;
-            wheel.value = colourNameToHex(color);
-        };
-        colorWheel.appendChild(div);
-        if (colors.length > 9) {
-            colors.shift();
-            colorWheel.removeChild(colorWheel.firstChild);
-        }
-    });
-    var importPalette = document.getElementById('importP');
-    importPalette.addEventListener('click', function () {
-        var palette = prompt('Enter a palette');
-        if (palette) {
-            colors = palette.split(',');
-            colorWheel.innerHTML = '';
-            for (var i = 0; i < colors.length; i++) {
-                var div = document.createElement('div');
-                div.style.width = '50px';
-                div.style.height = '50px';
-                div.style.backgroundColor = colors[i];
-                div.style.display = 'inline-block';
-                div.style.margin = '10px';
-                div.style.border = '1px solid black';
-                div.onclick = function () {
-                    color = this.style.backgroundColor;
-                    wheel.value = colourNameToHex(color);
-                };
-                colorWheel.appendChild(div);
-            }
-        }
-    });
-    var exportPalette = document.getElementById('exportP');
-    exportPalette.addEventListener('click', function () {
-        var palette = colors.join(',');
-        var a = document.createElement('a');
-        a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(palette);
-        a.download = 'palette.txt';
-        a.click();
-    });
-    let penSize = 0;
-    function updatePenSize() {
-        penSi.value = penSize + 1;
-    }
-    var eyedropper = document.getElementById('eyedropper');
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'c') {
-            clear.click();
-        }
-        if (e.key === 'p') {
-            pen.click();
-        }
-        if (e.key === 'e') {
-            eraser.click();
-        }
-        if (e.key === 'f') {
-            fill.click();
-        }
-        if (e.key === 'l') {
-            line.click();
-        }
-        if (e.key === 'r') {
-            rect.click();
-        }
-        if (e.key === 's') {
-            circle.click();
-        }
-        if (e.key === 'i') {
-            eyedropper.click();
-        }
-        if (e.key === '=' || e.key === '+') {
-            penSize += 1;
-            updatePenSize();
-        }
-        if (e.key === '-') {
-            if (penSize > 0) {
-                penSize -= 1;
-                updatePenSize();
-            }
-        }
-        if (e.ctrlKey && e.key === 'z') {
-            undo.click();
-        }
-        if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
-            redo.click();
-        }
-        if (e.key === "," || e.key === "<") {
-            if (parseInt(gridInput.value) < 1) {
-                return;
-            }
-            gridInput.value = parseInt(gridInput.value) - 1;
-            gridSize = parseInt(gridInput.value);
-            gridWidth = width / gridSize;
-            gridHeight = height / gridSize;
-            grid = [];
-            for (var i = 0; i < gridWidth; i++) {
-                grid[i] = [];
-                for (var j = 0; j < gridHeight; j++) {
-                    grid[i][j] = '';
-                }
-            }
-            points = [];
-            redrawGrid();
-        }
-        if (e.key === "." || e.key === ">") {
-            gridInput.value = parseInt(gridInput.value) + 1;
-            gridSize = parseInt(gridInput.value);
-            gridWidth = width / gridSize;
-            gridHeight = height / gridSize;
-            grid = [];
-            for (var i = 0; i < gridWidth; i++) {
-                grid[i] = [];
-                for (var j = 0; j < gridHeight; j++) {
-                    grid[i][j] = '';
-                }
-            }
-            redrawGrid();
-        }
-        // if key is a number
-        if (e.key >= 0 && e.key <= 9 && document.activeElement !== penSi && document.activeElement !== gridInput) {
-            color = colors[parseInt(e.key)];
-            wheel.value = colourNameToHex(color);
-        }
-    });
-
-    //color wheel
-    var colorWheel = document.getElementById('color-wheel');
-    var wheel = document.getElementById('wheel');
-    for (var i = 0; i < colors.length; i++) {
-        var div = document.createElement('div');
-        div.style.width = '50px';
-        div.style.height = '50px';
-        div.style.backgroundColor = colors[i];
-        div.style.display = 'inline-block';
-        div.style.margin = '10px';
-        div.style.border = '1px solid black';
-        div.onclick = function () {
-            color = this.style.backgroundColor;
-            wheel.value = colourNameToHex(color);
-        };
-        colorWheel.appendChild(div);
-    }
-    var color = 'black';
-    //get input from wheel
-    wheel.addEventListener('input', function () {
-        color = wheel.value;
-    });
-
-    //split canvas into a grid and only allow drawing in the grid
-    //mobile convert touch to mouse events
-    canvas.addEventListener('touchstart', function (e) {
-        e.preventDefault();
-        var touch = e.touches[0];
-        var mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX - window.scrollX,
-            clientY: touch.clientY - window.scrollY
-        });
-        canvas.dispatchEvent(mouseEvent);
-    });
-    canvas.addEventListener('touchend', function (e) {
-        e.preventDefault();
-        var mouseEvent = new MouseEvent('mouseup', {});
-        canvas.dispatchEvent(mouseEvent);
-    });
-    var lastDistance = 0;
-    canvas.addEventListener('touchmove', function (e) {
-        e.preventDefault();
-        var touch = e.touches[0];
-        if (e.touches.length === 2) {
-            var delta = Math.abs(e.touches[0].clientX - e.touches[1].clientX) + Math.abs(e.touches[0].clientY - e.touches[1].clientY);
-            if (lastDistance === 0) {
-                lastDistance = delta;
-            }
-            //create a scroll event
-            var event = new WheelEvent('wheel', {
-                deltaY: lastDistance - delta
-            });
-            zoomInOut(event);
-            lastDistance = delta;
-            return;
-
-        }
-        var mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX - window.scrollX,
-            clientY: touch.clientY - window.scrollY
-        });
-        canvas.dispatchEvent(mouseEvent);
-    });
-
-    //zoom in and out of the canvas with the mouse wheel
-    canvas.addEventListener('wheel', function (e) {
-        e.preventDefault();
-        if (e.deltaY < 0) {
-            zoom *= 1.1;
-        } else {
-            zoom /= 1.1;
-        }
-        if (zoom < .2) {
-            zoom = .2;
-        }
-        zoomInput.value = zoom;
-        zoomInOut(e);
-
-    });
-    function zoomInOut(e) {
-        var rect = canvas.getBoundingClientRect();
-        var centerX = canvas.width / 2;
-        var centerY = canvas.height / 2;
-        // Set transform origin to center of canvas
-        // Change zoom level
-        if (e.deltaY < 0) {
-            if (zoom < 5) {
-                zoom *= 1.1;
-            } else {
-                zoom = 5;
-                return;
-            }
-        } else {
-            zoom /= 1.1;
-        }
-        if (zoom < .2) {
-            zoom = .2;
-        }
-        //make sure offset is correct
-        var offsetX = (centerX - rect.left) / zoom - centerX;
-        var offsetY = (centerY - rect.top) / zoom - centerY;
-        canvas.style.transform = 'scale(' + zoom + ')';
-
-    }
-    //pixel art
-    for (var i = 0; i < gridWidth; i++) {
-        grid[i] = [];
-        for (var j = 0; j < gridHeight; j++) {
-            // erase all
-            grid[i][j] = '';
-        }
-    }
-
-
-    //draw on grid
-    var mouseDown = false;
-    var isDrawing = false;
-    canvas.addEventListener('mousedown', function (e) {
-        pushToHistory(grid.map(row => [...row]));
-        startPoint = { x: e.offsetX, y: e.offsetY };
-        if (line.checked || circle.checked || rect.checked) {
-            startingGrid = grid.map(row => [...row]);
-        }
-        mouseDown = true;
-        if (!line.checked) {
-            draw(e);
-        }
-        moving = isInsideSelection(e);
-        resizing = isRisingSelection(e);
-    });
-    canvas.addEventListener('mouseup', function (e) {
-        if (line.checked && startPoint) {
-            endPoint = { x: e.offsetX, y: e.offsetY };
-            pushToHistory(grid.map(row => [...row]));
-        }
-        startPoint = null;
-        mouseDown = false;
-        lastPoint = null;
-        resizing = false;
-        moving = false;
-    });
-    document.addEventListener('mouseup', function (e) {
-        mouseDown = false;
-        lastPoint = null;
-        startPoint = null;
-        resizing = false;
-        moving = false;
-        initialMouseX = undefined;
-        initialMouseY = undefined;
-    });
-    var resizing = false;
-    var selectedCorner = null;
-    var moving = false;
-    //mouse move event
-    canvas.addEventListener('mousemove', function (e) {
-        if (eyedropper.checked) {
-            canvas.style.cursor = 'crosshair';
-        } else {
-            canvas.style.cursor = 'default';
-        }
-        //random color
-        /*if (selectTool.checked) {
-            mousePointer(e);
-            selectT(e);
-            console.log("m", moving, "r", resizing)
-        }*/
-        if (mouseDown) {
-            if (resizing) {
-                resizeSelection(e);
-            } else if (moving) {
-                moveSelection(e);
-            }
-        }
-        draw(e);
-    });
-    //undo and redo
-    var undo = document.getElementById('undo');
-    var redo = document.getElementById('redo');
-    //check if two grids are the same
-    function isSameGrid(grid1, grid2) {
-        for (var i = 0; i < gridWidth; i++) {
-            for (var j = 0; j < gridHeight; j++) {
-                if (grid1[i][j] !== grid2[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    undo.addEventListener('click', function () {
-        if (undoHistory.length > 0) {
-            redoHistory.push(grid.map(row => [...row]));
-            grid = undoHistory.pop();
-            redrawGrid();
-        }
-    });
-    redo.addEventListener('click', function () {
-        if (redoHistory.length > 0) {
-            undoHistory.push(grid.map(row => [...row]));
-            grid = redoHistory.pop();
-            redrawGrid();
-        }
-    });
-    var undoHistory = [];
-    var redoHistory = [];
-    function pushToHistory(grid) {
-        if (undoHistory.length === 0) {
-            undoHistory.push(grid);
-            return;
-        }
-        if (!isSameGrid(grid, undoHistory[undoHistory.length - 1])) {
-            undoHistory.push(grid);
-            redoHistory = [];
-        }
-    }
-    function redrawGrid() {
-        for (var i = 0; i < gridWidth; i++) {
-            for (var j = 0; j < gridHeight; j++) {
-
-                if (grid[i][j] === '') {
-                    context.clearRect(i * gridSize, j * gridSize, gridSize, gridSize);
-                } else {
-                    context.fillStyle = grid[i][j];
-                    context.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
-                }
-            }
-        }
-        context.strokeStyle = 'black';
-    }
-    //check if pen or eraser is selected
-    var pen = document.getElementById('pen');
-    pen.checked = true;
-    var eraser = document.getElementById('eraser');
-    var fill = document.getElementById('fill');
-    var line = document.getElementById('line');
-    var circle = document.getElementById('circle');
-    var rect = document.getElementById('rect');
-    var lastPoint = null;
-    var selection = [];
-    function draw(e) {
-        grid = grid.map(row => row.map(cell => cell.trim()));
-        //add to history
-        if (!mouseDown) {
-            return;
-        }
-        if (pen.checked) {
-            //pushToHistory(grid.map(row => [...row]));
-            //draw a line between the last point and the current point
-            if (lastPoint) {
-                drawLine(lastPoint.x, lastPoint.y, e.offsetX, e.offsetY, Math.round(penSize / 4 * gridSize));
-            }
-            drawPixel(e, penSize);
-        } else if (eraser.checked) {
-            pushToHistory(grid.map(row => [...row]));
-            erasePixel(e, penSize);
-        } else if (fill.checked) {
-            pushToHistory(grid.map(row => [...row]));
-            fillPixel(e);
-        } else if (eyedropper.checked) {
-            canvas.style.cursor = 'crosshair';
-            eyedropperTool(e);
-        } else if (line.checked && startPoint) {
-            endPoint = { x: e.offsetX, y: e.offsetY };
-            //draw the grid to be starting grid
-            grid = startingGrid.map(row => [...row]);
-            //redraw only changed pixels
-            redrawGrid();
-            if (mouseDown) {
-                var start = performance.now();
-                drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
-                console.log(performance.now() - start + 'ms');
-
-            }
-
-        } else if (circle.checked && startPoint) {
-            endPoint = { x: e.offsetX, y: e.offsetY };
-            grid = startingGrid.map(row => [...row]);
-            redrawGrid();
-            if (mouseDown) {
-                drawCircle(startPoint.x, startPoint.y, endPoint.x, endPoint.y, penSize);
-            }
-        } else if (rect.checked && startPoint) {
-            endPoint = { x: e.offsetX, y: e.offsetY };
-            grid = startingGrid.map(row => [...row]);
-            redrawGrid();
-            if (mouseDown) {
-                drawRect(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-            }
-        }
-    }
-    function isInsideSelection(e) {
-        if (points.length !== 4) {
-            return false;
-        }
-        var rect = canvas.getBoundingClientRect();
-        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
-        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
-        var minX = Math.min(points[0].x, points[1].x, points[2].x, points[3].x);
-        var maxX = Math.max(points[0].x, points[1].x, points[2].x, points[3].x);
-        var minY = Math.min(points[0].y, points[1].y, points[2].y, points[3].y);
-        var maxY = Math.max(points[0].y, points[1].y, points[2].y, points[3].y);
-        var offsetX = 5;
-        var offsetY = 5;
-        var minX = minX + offsetX;
-        var maxX = maxX - offsetX;
-        var minY = minY + offsetY;
-        var maxY = maxY - offsetY;
-        if (mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY) {
-            return true;
-        }
-        return false;
-    }
-    function isRisingSelection(e) {
-        if (points.length !== 4) {
-            return false;
-        }
-        var rect = canvas.getBoundingClientRect();
-        // adjust the mouse coordinates based on the zoom level
-        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
-        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
-        for (var i = 0; i < points.length; i++) {
-            var dx = mouseX - points[i].x;
-            var dy = mouseY - points[i].y;
-            var distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance <= 10) {
-                return true;
-            }
-        }
-        return resizing;
-    }
-    var points = [];
-    function mousePointer(e) {
-        var rect = canvas.getBoundingClientRect();
-        //fix when zoomed in
-        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
-        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
-        var overPoint = false;
-        /*if (points.length === 0) {
-            canvas.style.cursor = 'default';
-        }*/
-        for (var i = 0; i < points.length; i++) {
-            var dx = mouseX - points[i].x;
-            var dy = mouseY - points[i].y;
-            var distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance <= 20) {
-                selectedCorner = i;
-                overPoint = true;
-                //use nswe or nsew to determine cursor
-                if (i === 0 || i === 2) {
-                    canvas.style.cursor = 'nwse-resize';
-                } else if (i === 1 || i === 3) {
-                    canvas.style.cursor = 'nesw-resize';
-                }
-                return;
-            }
-        }
-        /*if (!overPoint) {
-            if (isInsideSelection(e)) {
-                canvas.style.cursor = 'move';
-            } else {
-                canvas.style.cursor = 'default';
-            }
-        }*/
-
-    }
-    function selectT(e) {
-        if (resizing || moving) {
-            return;
-        }
-
-        var rect = canvas.getBoundingClientRect();
-        //fix zoom
-        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
-        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
-        //create 4 points
-        if (!mouseDown) {
-            return;
-        }
-        resizing = false;
-        moving = false;
-        startX = startPoint.x;
-        startY = startPoint.y;
-        var x = (e.offsetX - rect.left) / zoom - canvas.offsetLeft;
-        var y = (e.offsetY - rect.top) / zoom - canvas.offsetTop;
-        var minX = Math.min(startX, x);
-        var maxX = Math.max(startX, x);
-        var minY = Math.min(startY, y);
-        var maxY = Math.max(startY, y);
-        points = [{ x: minX, y: minY }, { x: maxX, y: minY }, { x: maxX, y: maxY }, { x: minX, y: maxY }];
-        if (points.length === 4) {
-            drawSelection(startX, startY, x, y);
-        }
-    }
-    function drawSelection(startX, startY, x, y) {
-        startX = Math.round(startX / gridSize) * gridSize;
-        startY = Math.round(startY / gridSize) * gridSize;
-        x = Math.round(x / gridSize) * gridSize;
-        y = Math.round(y / gridSize) * gridSize;
-
-        //lock the corners to the grid
-        redrawGrid();
-        context.strokeStyle = 'black';
-        context.lineWidth = 1;
-        context.strokeRect(startX, startY, x - startX, y - startY);
-        context.fillStyle = 'white';
-        context.beginPath();
-        context.arc(startX, startY, 5, 0, 2 * Math.PI);
-        context.fill();
-        context.stroke();
-        context.beginPath();
-        context.arc(x, startY, 5, 0, 2 * Math.PI);
-        context.fill();
-        context.stroke();
-        context.beginPath();
-        context.arc(x, y, 5, 0, 2 * Math.PI);
-        context.fill();
-        context.stroke();
-        context.beginPath();
-        context.arc(startX, y, 5, 0, 2 * Math.PI);
-        context.fill();
-        context.stroke();
-
-
-    }
-    function resizeSelection(e) {
-        if (moving) {
-            return;
-        }
-        // keep opposite corner anchored and move the other corners based on the mouse position
-        var rect = canvas.getBoundingClientRect();
-        // adjust the mouse coordinates based on the zoom level
-        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
-        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
-        var oppositeCorner = (selectedCorner + 2) % 4;
-        drawSelection(points[oppositeCorner].x, points[oppositeCorner].y, mouseX, mouseY);
-        newPoints = []
-        var newWidth = points[oppositeCorner].x - mouseX;
-        var newHeight = points[oppositeCorner].y - mouseY;
-        newPoints[oppositeCorner] = { x: points[oppositeCorner].x, y: points[oppositeCorner].y };
-        newPoints[(oppositeCorner + 1) % 4] = { x: mouseX, y: points[oppositeCorner].y };
-        newPoints[(oppositeCorner + 2) % 4] = { x: mouseX, y: mouseY };
-        newPoints[(oppositeCorner + 3) % 4] = { x: points[oppositeCorner].x, y: mouseY };
-        points = newPoints;
-    }
-    var initialMouseX, initialMouseY;
-    function moveSelection(e) {
-        var rect = canvas.getBoundingClientRect();
-        // adjust the mouse coordinates based on the zoom level
-        var mouseX = (e.clientX - rect.left) / zoom - canvas.offsetLeft;
-        var mouseY = (e.clientY - rect.top) / zoom - canvas.offsetTop;
-        if (initialMouseX === undefined || initialMouseY === undefined) {
-            initialMouseX = mouseX;
-            initialMouseY = mouseY;
-        }
-        var dx = mouseX - initialMouseX;
-        var dy = mouseY - initialMouseY;
-        var newPoints = points.map((point, i) => {
-            var newX = point.x + dx;
-            var newY = point.y + dy;
-            // snap the new position to the grid
-            newX = Math.round(newX / gridSize) * gridSize;
-            newY = Math.round(newY / gridSize) * gridSize;
-            return { x: newX, y: newY };
-        });
-        initialMouseX = mouseX;
-        initialMouseY = mouseY;
-        redrawGrid();
-        drawSelection(newPoints[0].x, newPoints[0].y, newPoints[2].x, newPoints[2].y);
-        points = newPoints;
-
-    }
-    function eyedropperTool(e) {
-        var rect = canvas.getBoundingClientRect();
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-        var i = Math.floor(x / gridSize);
-        var j = Math.floor(y / gridSize);
-        color = grid[i][j];
-        if (color.includes("#")) {
-            wheel.value = color;
-        } else {
-            wheel.value = colourNameToHex(color);
-        }
-        pen.checked = true;
-        eraser.checked = false;
-        fill.checked = false;
-        line.checked = false;
-        circle.checked = false;
-        rect.checked = false;
-        eyedropper.checked = false;
-        //make activate mouse up event
-        mouseDown = false;
-
-    }
-    var startPoint = null;
-    var endPoint = null;
-    var queue2 = [];
-    function drawLine(x, y, x2, y2, rad) {
-        rad2 = rad * 4;
-        var dx = x2 - x;
-        var dy = y2 - y;
-        var len = Math.sqrt(dx * dx + dy * dy);
-        var radX = rad2 * dy / len;
-        var radY = rad2 * dx / len;
-        drawLinePos(x - radX, y + radY, x2 - radX, y2 + radY, 0);
-        drawLinePos(x + radX, y - radY, x2 + radX, y2 - radY, 0);
-        //as grid size decreases, the number of intervals decreases, at 5 it should be 1, at 2 it should be .1
-        var intervals = Math.max(1, Math.round(rad / 5)) ;
-        if (rad > intervals) {
-            drawLine(x, y, x2, y2, rad - intervals);
-        }
-        console.log(rad, intervals);
-        drawLinePos(x, y, x2, y2, 0);
-
-    }
-
-    function drawLinePos(x, y, x2, y2) {
-        //use bresenhams line algorithm to draw a line between x,y and x2,y2
-        var slope = (y2 - y) / (x2 - x);
-        var dx = Math.abs(x2 - x);
-        var dy = Math.abs(y2 - y);
-        var steps = Math.max(dx, dy);
-        var xInc = (x2 - x) / steps;
-        var yInc = (y2 - y) / steps;
-        for (var i = 0; i <= steps; i++) {
-            drawPixelCoords(x + i * xInc, y + i * yInc, 0);
-        }
-
-    }
-    function drawPixelCoords(x, y, penSize) {
-        var i = Math.floor(x / gridSize);
-        var j = Math.floor(y / gridSize);
-        // Draw a circle of pixels around the point (i, j)
-        for (var di = -penSize; di <= penSize; di++) {
-            for (var dj = -penSize; dj <= penSize; dj++) {
-                // Calculate the distance to the center point
-                var dist = Math.sqrt(di * di + dj * dj);
-                // If the distance is less than or equal to the penSize, color the point
-                if (dist <= penSize) {
-                    var ii = i + di;
-                    var jj = j + dj;
-                    // Check if the point is inside the grid
-                    if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
-                        grid[ii][jj] = color;
-                        context.fillStyle = color;
-                        context.fillRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
-                    }
-                }
-            }
-        }
-    }
-    function drawPixel(e, penSize) {
-        lastPoint = { x: e.offsetX, y: e.offsetY };
-        var rect = canvas.getBoundingClientRect();
-        var x = e.pageX - window.scrollX - rect.left;
-        var y = e.pageY - window.scrollY - rect.top;
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-
-        var i = Math.floor(x / gridSize);
-        var j = Math.floor(y / gridSize);
-        // Draw a circle of pixels around the point (i, j)
-        for (var di = -penSize; di <= penSize; di++) {
-            for (var dj = -penSize; dj <= penSize; dj++) {
-                // Calculate the distance to the center point
-                var dist = Math.sqrt(di * di + dj * dj);
-                // If the distance is less than or equal to the penSize, color the point
-                if (dist <= penSize) {
-                    var ii = i + di;
-                    var jj = j + dj;
-                    // Check if the point is inside the grid
-                    if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
-                        grid[ii][jj] = color;
-                        context.fillStyle = color;
-                        context.fillRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
-                    }
-                }
-            }
-        }
-    }
-    //erase pixel
-    function erasePixel(e, penSize) {
-        var rect = canvas.getBoundingClientRect();
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-
-        var i = Math.floor(x / gridSize);
-        var j = Math.floor(y / gridSize);
-
-        // Draw a circle of pixels around the point (i, j)
-        for (var di = -penSize; di <= penSize; di++) {
-            for (var dj = -penSize; dj <= penSize; dj++) {
-                // Calculate the distance to the center point
-                var dist = Math.sqrt(di * di + dj * dj);
-                // If the distance is less than or equal to the penSize, color the point
-                if (dist <= penSize) {
-                    var ii = i + di;
-                    var jj = j + dj;
-                    // Check if the point is inside the grid
-                    if (ii >= 0 && ii < grid.length && jj >= 0 && jj < grid[0].length) {
-                        var rect = canvas.getBoundingClientRect();
-                        grid[ii][jj] = '';
-                        context.clearRect(ii * gridSize, jj * gridSize, gridSize, gridSize);
-
-
-                    }
-                }
-            }
-        }
-    }
-    function drawCircle(x1, y1, x2, y2, ps) {
-        var radius = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-        var x = radius;
-        var y = 0;
-        var err = 0;
-        while (x >= y) {
-            drawPixelCoords(x1 + x, y1 + y, 0);
-            drawPixelCoords(x1 + y, y1 + x, 0);
-            drawPixelCoords(x1 - y, y1 + x, 0);
-            drawPixelCoords(x1 - x, y1 + y, 0);
-            drawPixelCoords(x1 - x, y1 - y, 0);
-            drawPixelCoords(x1 - y, y1 - x, 0);
-            drawPixelCoords(x1 + y, y1 - x, 0);
-            drawPixelCoords(x1 + x, y1 - y, 0);
-            if (err <= 0) {
-                y += 1;
-                err += 2 * y + 1;
-            }
-            if (err > 0) {
-                x -= 1;
-                err -= 2 * x + 1;
-            }
-        }
-        if (ps > 0) {
-            //draw a circle with smaller x and y
-            drawCircle(x1, y1, x2 - 1, y2 - 1, ps - 1);
-        }
-    }
-    function drawRect(x1, y1, x2, y2) {
-        if (x1 > x2) {
-            var temp = x1;
-            x1 = x2;
-            x2 = temp;
-        }
-        if (y1 > y2) {
-            var temp = y1;
-            y1 = y2;
-            y2 = temp;
-        }
-        drawLine(x1 - (penSize * 4), y1, x2 + (penSize * 4), y1, penSize);
-        drawLine(x1 - (penSize * 4), y2, x2 + (penSize * 4), y2, penSize);
-        drawLine(x1, y1 - (penSize * 4), x1, y2 + (penSize * 4), penSize);
-        drawLine(x2, y1 - (penSize * 4), x2, y2 + (penSize * 4), penSize);
-
-
-    }
-    //flood fill
-    function includesCoordinate(checked, coord) {
-        for (var i = 0; i < checked.length; i++) {
-            if (checked[i][0] === coord[0] && checked[i][1] === coord[1]) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function fillPixel(e) {
-        var rect = canvas.getBoundingClientRect();
-        var x = (e.pageX - window.scrollX - rect.left) / zoom;
-        var y = (e.pageY - window.scrollY - rect.top) / zoom;
-        var i = Math.floor(x / gridSize);
-        var j = Math.floor(y / gridSize);
-        var targetColor = grid[i][j];
-        //log the time the function takes to execute in ms
-        var start = performance.now();
-        //oldfloodFill(i, j, targetColor, color);
-        floodFill(i, j, targetColor, color);
-        console.log(performance.now() - start + 'ms');
-        redrawGrid();
-    }
-
-    //flood fill algorithm
-    function floodFill(x, y, targetColor, replacementColor) {
-        //create empty stack
-        var queue = [[x, y]];
-        var visited = new Set();
-        //add to stack
-        //while stack is not empty
-        while (queue.length) {
-            //remove first value from stack
-            var [i, j] = queue.shift();
-            //if the pixel is out of bounds, continue
-            if (i < 0 || i >= gridWidth || j < 0 || j >= gridHeight) {
-                continue;
-            }
-            if (grid[i][j] !== targetColor) {
-                continue;
-            }
-            var coord = `${i},${j}`;
-            if (visited.has(coord)) {
-                continue;
-            }
-            grid[i][j] = replacementColor;
-            redrawPixel(i, j);
-            visited.add(coord);
-            queue.push([i + 1, j]);
-            queue.push([i - 1, j]);
-            queue.push([i, j + 1]);
-            queue.push([i, j - 1]);
-        }
-    }
-
-    function redrawPixel(i, j) {
-        context.fillStyle = grid[i][j];
-        context.fillRect(i * gridSize, j * gridSize, gridSize, gridSize);
-    }
-
-    //clear button, remove all pixels, and redraw the grid
-    var clear = document.getElementById('clear');
-    clear.addEventListener('click', function () {
-        context.clearRect(0, 0, width, height);
-        for (var i = 0; i < gridWidth; i++) {
-            for (var j = 0; j < gridHeight; j++) {
-                grid[i][j] = '';
-            }
-        }
-
-    });
-    //make sure that all other radios aren't selected 
-    //if any radio is selected, set their label color to white
-    var labels = document.querySelectorAll('label');
-    //get the label for each radio
-
-    var tools = document.querySelectorAll('input[type="radio"]');
-    tools.forEach(function (tool) {
-        tool.addEventListener('click', function () {
-            tools.forEach(function (t) {
-                if (t !== tool) {
-                    t.checked = false;
-                    try {
-                        t.nextElementSibling.style.color = 'black';
-                        t.style.backgroundColor = 'white';
-                    } catch (e) {
-                        t.parentElement.style.color = 'black';
-
-                    }
-                    points = [];
-                    /*if (t === selectTool) {
-                        redrawGrid();
-                    }*/
-                }
-            });
-            try {
-                tool.nextElementSibling.style.color = 'white';
-                tool.style.backgroundColor = 'black';
-            } catch (e) {
-                console.log(tool.parentElement);
-
-            }
-
-        });
-        //if the radio is selected, set the label color to white
-        if (tool.checked) {
-            tool.nextElementSibling.style.color = 'white';
-            tool.style.backgroundColor = 'black';
-        }
-    });
-
-</script>
 
 </html>
+<script>
+    const button = document.getElementById('submit');
+    //button.addEventListener('click', clicked)
+    const elem = document.getElementById('pan')
+    const pz = Panzoom(elem, {
+        maxScale: 5
+    })
+    elem.addEventListener('wheel', pz.zoomWithWheel);
+    let points = [];
+    let startdate = 1607;
+    let enddate = 2021;
+    class point {
+        constructor(name, startyear, endyear, description,) {
+            this.name = name;
+            this.startyear = startyear;
+            this.endyear = endyear;
+            this.description = description;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        timeline = timeline.timeline.events;
+        for (let i = 0; i < timeline.event.length; i++) {
+            points.push(new point(
+                timeline.event[i].text,
+                parseInt(timeline.event[i].start.substr(0, 4)),
+                parseInt(timeline.event[i].end.substr(0, 4)),
+                timeline.event[i].description
+            ));
+        }
+        loadPoints();
+    });
+
+    function loadPoints() {
+        for (let i = 0; i < points.length; i++) {
+            // Create a div for each point and position it based on the start year
+            let pointDiv = document.createElement('div');
+            pointDiv.className = 'point';
+            pointDiv.style.position = 'absolute';
+            // margin left 
+            let yearRange = enddate - startdate;
+            let position = ((points[i].startyear - startdate) / yearRange) * 100; // Calculate percentage position
+            pointDiv.style.left = position + '%';
+            pointDiv.style.top = '0%'; // Center vertically
+            pointDiv.style.transform = 'translateY(-50%)';
+            //make sure points don't overlap by using a top margin based on the index
+            pointDiv.style.marginTop = (i / 3) + 1 + 'rem'; // Adjust as needed for spacing
+            pointDiv.innerHTML = `<strong>${points[i].name}</strong>`;
+            // hover effect to show description
+            if (points[i].description !== undefined) {
+
+                let tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.innerHTML = `<p>${points[i].description}</p>`;
+                pointDiv.appendChild(tooltip);
+                tooltip.style.display = 'none'; // Initially hidden
+                pointDiv.addEventListener('mouseover', function () {
+                    tooltip.style.display = 'block';
+                    tooltip.style.position = 'absolute';
+                    pointDiv.style.zIndex = '1000'; // Bring to front
+                    pointDiv.style.backgroundColor = 'lightblue'; // Change background color on hover
+                    pointDiv.style.padding = '0.5rem'; // Add padding for better visibility
+                    tooltip.style.backgroundColor = 'lightblue'; // Set tooltip background color
+                    tooltip.style.padding = '0.5rem'; // Add padding to tooltip
+                    toolip.width = pointDiv.width + 'px'; // Set tooltip width to match pointDiv
+                    toolip.style.padding = '0.5rem'; // Add padding to tooltip
+                    tooltip.style.left = '50%'; // Center tooltip horizontally
+                    tooltip.style.transform = 'translateX(-50%)'; // Center tooltip horizontally
+                    tooltip.style.top = '100%'; // Position tooltip below the point
+
+
+
+                });
+                pointDiv.addEventListener('mouseout', function () {
+                    tooltip.style.display = 'none';
+                    pointDiv.style.zIndex = '1'; // Reset z-index
+                    pointDiv.style.backgroundColor = ''; // Reset background color
+                });
+                elem.appendChild(pointDiv);
+            }
+        }
+        yearTickers();
+    }
+    // draw year lines
+
+    function yearTickers() {
+        // create a div for every 10 years from startdate to enddate
+        let yearRange = enddate - startdate;
+        for (let i = startdate; i <= enddate; i += 10) {
+            let yearDiv = document.createElement('div');
+            yearDiv.className = 'year';
+            yearDiv.style.position = 'absolute';
+            let position = ((i - startdate) / yearRange) * 100; // Calculate percentage position
+            yearDiv.style.left = position + '%';
+            yearDiv.style.top = '0%'; // Position at the bottom
+            yearDiv.style.transform = 'translateX(-50%)'; // Center horizontally
+            yearDiv.innerHTML = `<strong>${i}</strong>`;
+            elem.appendChild(yearDiv);
+        }
+    }
+
+</script>
+<style>
+    #pan {
+        width: 100vw;
+        height: 700vh;
+        background-color: white;
+        cursor: grab;
+        font-size: .5rem;
+    }
+</style>
