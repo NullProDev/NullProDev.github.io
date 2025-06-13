@@ -1412,13 +1412,13 @@
 				});
 				pointDiv.addEventListener('mouseout', function () {
 					tooltip.style.display = 'none';
-					pointDiv.style.zIndex = '1'; // Reset z-index
+					pointDiv.style.zIndex = '-1'; // Reset z-index
 					pointDiv.style.backgroundColor = ''; // Reset background color
 				});
 				pointDiv.addEventListener('click', function () {
 					if (showingTooltip === i) {
 						tooltip.style.display = 'none';
-						pointDiv.style.zIndex = '1'; // Reset z-index
+						pointDiv.style.zIndex = '-1'; // Reset z-index
 						pointDiv.style.backgroundColor = ''; // Reset background color
 						pointDiv.style.padding = ''; // Reset padding
 						tooltip.style.padding = ''; // Reset padding on tooltip
