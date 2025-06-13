@@ -1372,7 +1372,7 @@
         }
         loadPoints();
     });
-
+	let showingTooltip = -1;
     function loadPoints() {
         for (let i = 0; i < points.length; i++) {
             // Create a div for each point and position it based on the start year
@@ -1409,15 +1409,39 @@
                     tooltip.style.left = '50%'; // Center tooltip horizontally
                     tooltip.style.transform = 'translateX(-50%)'; // Center tooltip horizontally
                     tooltip.style.top = '100%'; // Position tooltip below the point
-
-
-
                 });
                 pointDiv.addEventListener('mouseout', function () {
                     tooltip.style.display = 'none';
                     pointDiv.style.zIndex = '1'; // Reset z-index
                     pointDiv.style.backgroundColor = ''; // Reset background color
                 });
+				pointDiv.addEventListener('click', function () {
+					if (showingTooltip === i) {
+						tooltip.style.display = 'none';
+						showingTooltip = -1;
+					} else {
+						if (showingTooltip !== -1) {
+							let previousTooltip = elem.querySelector('.tooltip');
+							if (previousTooltip) {
+								previousTooltip.style.display = 'none';
+							}
+						}
+						tooltip.style.display = 'block';
+						tooltip.style.position = 'absolute';
+						pointDiv.style.zIndex = '1000'; // Bring to front
+						pointDiv.style.backgroundColor = 'lightblue'; // Change background color on hover
+						pointDiv.style.padding = '0.5rem'; // Add padding for better visibility
+						tooltip.style.backgroundColor = 'lightblue'; // Set tooltip background color
+
+						tooltip.style.padding = '0.5rem'; // Add padding to tooltip
+						tooltip.style.left = '50%'; // Center tooltip horizontally
+						tooltip.style.transform = 'translateX(-50%)'; // Center tooltip horizontally
+						tooltip.style.top = '100%'; // Position tooltip below the point
+						showingTooltip = i; // Update showingTooltip to the current index
+					}
+				});
+			
+
                 elem.appendChild(pointDiv);
             }
         }
@@ -1440,31 +1464,6 @@
             elem.appendChild(yearDiv);
         }
     }
-	//add mobile hover effect
-	elem.addEventListener('touchstart', function (e) {
-		let target = e.target;
-		if (target.classList.contains('point')) {
-			let tooltip = target.querySelector('.tooltip');
-			if (tooltip) {
-				tooltip.style.display = 'block';
-				target.style.zIndex = '1000'; // Bring to front
-				target.style.backgroundColor = 'lightblue'; // Change background color on hover
-				target.style.padding = '0.5rem'; // Add padding for better visibility
-			}
-		}
-	});
-
-	elem.addEventListener('touchend', function (e) {
-		let target = e.target;
-		if (target.classList.contains('point')) {
-			let tooltip = target.querySelector('.tooltip');
-			if (tooltip) {
-				tooltip.style.display = 'none';
-				target.style.zIndex = '1'; // Reset z-index
-				target.style.backgroundColor = ''; // Reset background color
-			}
-		}
-	});
 </script>
 <style>
     #pan {
