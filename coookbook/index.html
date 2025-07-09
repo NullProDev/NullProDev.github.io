@@ -7,12 +7,25 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CoookBook">
     <meta name="msapplication-TileColor" content="#FFE8E1">
+    <link rel="apple-touch-icon" href="/coookbook/ios/512.png">
+    <link rel="apple-touch-startup-image" href="/coookbook/ios/512.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>Home</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="manifest" href="manifest.json">
-    <script>navigator.serviceWorker.register("/coookbook/service-worker.js")</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("/coookbook/service-worker.js");
+        }
+        // Standalone mode iOS redirect to root
+        if (window.navigator.standalone) {
+            if (location.pathname !== "/coookbook/") {
+                location.replace("/coookbook/");
+            }
+        }
+    </script>
 </head>
 
 <body>
