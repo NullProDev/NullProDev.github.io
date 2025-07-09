@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <div id="bg">
+        <div id="text">
+            <svg id="circularText" viewBox="5 -5 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path id="circlePath" fill="none" d="
+      M 15, 50
+      a 40,40 0 1,1 80,0
+      40,40 0 1,1 -80,0
+    " />
+                <text>
+                    <textPath href="#circlePath" id="logoText">
+                        &nbsp; &ThinSpace; CoookBook
+                    </textPath>
+                </text>
+            </svg>
+        </div>
+        <svg id="logo" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+                d="M240 144A96 96 0 1 0 48 144a96 96 0 1 0 192 0zm44.4 32C269.9 240.1 212.5 288 144 288C64.5 288 0 223.5 0 144S64.5 0 144 0c68.5 0 125.9 47.9 140.4 112l71.8 0c8.8-9.8 21.6-16 35.8-16l104 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-104 0c-14.2 0-27-6.2-35.8-16l-71.8 0zM144 80a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM400 240c13.3 0 24 10.7 24 24l0 8 96 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-240 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l96 0 0-8c0-13.3 10.7-24 24-24zM288 464l0-112 224 0 0 112c0 26.5-21.5 48-48 48l-128 0c-26.5 0-48-21.5-48-48zM48 320l80 0 16 0 32 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-80c0-8.8 7.2-16 16-16zm128 64c8.8 0 16-7.2 16-16s-7.2-16-16-16l-16 0 0 32 16 0zM24 464l176 0c13.3 0 24 10.7 24 24s-10.7 24-24 24L24 512c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+        </svg>
+        <svg id="ellipse" width="150%" height="12em" viewBox="0 0 900 200">
+            <ellipse cx="420" cy="150" rx="530" ry="200" fill="var(--pink)" />
+        </svg>
+        <div id="panel">
+            <form action="">
+                <h2>Log In</h2>
+                <h3>Email</h3>
+                <input type="text" id="email">
+                <h3>Password</h3>
+                <div class="inline">
+                    <input type="password" id="password">
+                    <button id="showhide" type="button" onclick="showHide()">
+                        
+                        <i class="fa-solid fa-eye" id="eye"></i>
+                        <i class="fa-solid fa-eye-slash" id="eye-slash" style="display:none;"></i>
+                    </button>
+                </div>
+                <div class="inline p">
+                    <input type="button" value="Sign Up">
+                    <input type="button" value="Log In" class="disabled">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    let count = 1;
+    function showHide(){
+        event.preventDefault();
+        let sh =document.getElementById('showhide');
+        let pw =document.getElementById('password');
+        let openEye = document.getElementById('eye');
+        let closedEye = document.getElementById('eye-slash')
+        sh.classList.toggle('disabled')
+        if(count%2==0){
+            pw.type="password";
+            openEye.style.display="block";
+            closedEye.style.display="none";
+        }else{
+            pw.type="text";
+            openEye.style.display="none";
+            closedEye.style.display="block";
+        }
+        count++;
+    }
+</script>
+</html>
+<!--
+Colors 
+Light Beige: #FFE8E1
+Pink: #BA6E6E 
+Beige: #DFC3A4
+Brown: #A1674A
+Dark Purple: #561643
+Purple: 9B7EDE
+-->
+<style>
+    :root {
+        --light-beige: #FFE8E1;
+        --pink: #BA6E6E;
+        --beige: #DFC3A4;
+        --brown: #A1674A;
+        --dark-purple: #561643;
+        --purple: #9B7EDE;
+    }
+
+    @font-face {
+        font-family: Josefin;
+        src: url(Josefin.ttf);
+    }
+
+    @font-face {
+        font-family: Josefin-Italics;
+        src: url(JosefinItalic.ttf);
+    }
+
+    * {
+        font-family: Josefin;
+    }
+
+    #bg {
+        background-color: #FFE8E1;
+        width: 20em;
+        aspect-ratio: 9/19.5 auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        position: relative;
+        padding: 0;
+        overflow: hidden;
+    }
+    #showhide{
+        width: 3em;
+        height: 3em;
+        padding: 0;
+        border-radius: 50%;
+        background: var(--purple);
+        border: 0;
+        margin-right: 1.5em;
+        margin-bottom: .5em;
+        cursor: pointer;
+    }
+    #text {
+        padding-top: 1em;
+        display: flex;
+        justify-content: center;
+    }
+
+    #circularText {
+        width: 20em;
+        position: absolute;
+    }
+
+    textPath {
+        fill: var(--pink);
+        font-weight: bolder;
+    }
+
+    #logo {
+        width: 9.8em;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 5em;
+        color: var(--pink);
+        fill: var(--pink)
+    }
+
+    #ellipse {
+        position: absolute;
+        bottom: -4em;
+        left: 3em;
+        margin-left: -3em;
+    }
+
+    #panel {
+        border-radius: .5em;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2em;
+        width: 90%;
+        height: 17em;
+        background-color: var(--beige);
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 1em 1em;
+        border-radius: .7em;
+        border: 1.5px solid var(--dark-purple);
+        background-color: var(--light-beige);
+        display: block;
+    }
+
+    #email {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2em;
+    }
+
+    #password {
+        width: 60%;
+        margin-left: 1.3em;
+        margin-bottom: .5em;
+    }
+
+    form {
+        padding-top: 1.5em;
+    }
+
+    .inline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .p{
+        padding: .7em 2em 0 2em;
+    }
+    input[type="button"] {
+        background-color: var(--pink);
+        color: var(--dark-purple);
+        border: none;
+        border-radius: 0.5em;
+        padding: 0.4em 1.5em;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    input[type="button"]:hover {
+        background-color: var(--brown);
+    }
+
+    .disabled {
+        background-color: var(--brown) !important;
+    }
+
+    h3 {
+        color: var(--dark-purple);
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 1em;
+        font-weight: 500;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
+        color: var(--dark-purple);
+        font-weight: 500;
+    }
+    *{
+        color: var(--dark-purple);
+    }
+</style>
