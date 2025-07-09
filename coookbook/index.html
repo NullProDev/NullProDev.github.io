@@ -56,9 +56,9 @@
             <form action="">
                 <h2>Log In</h2>
                 <h3>Email</h3>
-                <input type="text" id="email">
+                <input type="text" id="email" class="inline">
                 <h3>Password</h3>
-                <div class="inline">
+                <div class="inline pwd">
                     <input type="password" id="password">
                     <button id="showhide" type="button" onclick="showHide()">
 
@@ -156,6 +156,29 @@ Purple: 9B7EDE
             height: 100vh;
             aspect-ratio: auto !important;
         }
+
+        #email {
+            border: 1.5px solid var(--dark-purple);
+            width: 26em !important;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2em;
+            display: flex;
+
+        }
+
+        #password {
+            width: 16em !important;
+            margin-left: 0;
+            margin-bottom: .5em;
+        }
+
+
+        .pwd {
+            width: 23.5em !important;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
     #showhide {
@@ -165,7 +188,7 @@ Purple: 9B7EDE
         border-radius: 50%;
         background: var(--purple);
         border: 0;
-        margin-right: 1.5em;
+        margin-right: 0em;
         margin-bottom: .5em;
         cursor: pointer;
     }
@@ -223,6 +246,7 @@ Purple: 9B7EDE
     }
 
     #email {
+        border: 1.5px solid var(--dark-purple);
         width: 80%;
         margin-left: auto;
         margin-right: auto;
@@ -231,12 +255,18 @@ Purple: 9B7EDE
 
     #password {
         width: 60%;
-        margin-left: 1.3em;
+        margin-left: 0;
         margin-bottom: .5em;
     }
 
     form {
         padding-top: 1.5em;
+    }
+
+    .pwd {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .inline {
