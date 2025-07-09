@@ -2,7 +2,7 @@
 "name": "CoookBook",
 "short_name": "CoookBook",
 "start_url": "https://nullprodev.github.io/coookbook/index.html",
-"display": "minimal-ui",
+"display": "fullscreen",
 "description": "A simple recipe app",
 "dir": "auto",
 "theme_color": "#BA6E6E",
