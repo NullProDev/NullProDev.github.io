@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1 id="title">Welcome to My Site!</h1>
+    <div id="container">
+    </div>
+</body>
+
+</html>
+<script>
+    let urls = ['coookbook', 'drawing', 'time', 'us timeline']
+    let container = document.getElementById('container')
+    document.addEventListener('domcontentloaded', load());
+    function load() {
+        urls.forEach(element => {
+            let link = document.createElement('a');
+            link.innerText = element;
+            link.href = element + '/index.html';
+            container.appendChild(link);
+        });
+    }
+
+</script>
+<style>
+    * {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #title {
+        text-align: center;
+        width: 100vw;
+        color: #303036;
+    }
+
+    #container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        width: 100vw;
+    }
+
+    #container>a {
+        text-align: center;
+        background-color: #D4E6B5;
+        color: #303036;
+        padding: 1em;
+        margin: 1em;
+        font-size: 2em;
+    }
+</style>
