@@ -55,20 +55,22 @@
         <div id="panel">
             <form action="">
                 <h2>Log In</h2>
-                <h3>Email</h3>
-                <input type="text" id="email" class="inline">
-                <h3>Password</h3>
-                <div class="inline pwd">
-                    <input type="password" id="password">
-                    <button id="showhide" type="button" onclick="showHide()">
+                <div id="aaa">
+                    <h3>Email</h3>
+                    <input type="text" id="email" class="inline">
+                    <h3>Password</h3>
+                    <div class="inline pwd">
+                        <input type="password" id="password">
+                        <button id="showhide" type="button" onclick="showHide()">
 
-                        <i class="fa-solid fa-eye" id="eye"></i>
-                        <i class="fa-solid fa-eye-slash" id="eye-slash" style="display:none;"></i>
-                    </button>
-                </div>
-                <div class="inline p">
-                    <input type="button" value="Sign Up">
-                    <input type="button" value="Log In" class="disabled">
+                            <i class="fa-solid fa-eye" id="eye"></i>
+                            <i class="fa-solid fa-eye-slash" id="eye-slash" style="display:none;"></i>
+                        </button>
+                    </div>
+                    <div class="inline p">
+                        <input type="button" value="Sign Up">
+                        <input type="button" value="Log In" class="disabled">
+                    </div>
                 </div>
             </form>
         </div>
@@ -107,6 +109,10 @@ Dark Purple: #561643
 Purple: 9B7EDE
 -->
 <style>
+    #aaa{
+        margin-left: 10%;
+        width: 80%;
+    }
     :root {
         --light-beige: #FFE8E1;
         --pink: #BA6E6E;
@@ -159,9 +165,9 @@ Purple: 9B7EDE
 
         #email {
             border: 1.5px solid var(--dark-purple);
-            width: 26em !important;
-            margin-left: auto;
-            margin-right: auto;
+            width: 92% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
             margin-bottom: 2em;
             display: flex;
 
@@ -175,7 +181,7 @@ Purple: 9B7EDE
 
 
         .pwd {
-            width: 23.5em !important;
+            width: 100% !important;
             margin-left: auto;
             margin-right: auto;
         }
@@ -264,7 +270,7 @@ Purple: 9B7EDE
     }
 
     .pwd {
-        width: 90%;
+        width: 93%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -273,10 +279,6 @@ Purple: 9B7EDE
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .p {
-        padding: .7em 2em 0 2em;
     }
 
     input[type="button"] {
